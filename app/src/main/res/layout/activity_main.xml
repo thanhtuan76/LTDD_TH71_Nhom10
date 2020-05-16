@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#D2192B">
+            <ImageButton
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="25dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/sidebar"/>
+            <ImageButton
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11dp"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@drawable/logo"/>
+            <ImageButton
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="210dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/cart"/>
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#D2192B">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/search"
+                android:layout_marginRight="20dp"
+                android:hint="Search"
+                android:paddingLeft="40dp"
+                />
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+
+        <ViewFlipper
+            android:id="@+id/viewFlipper"
+            android:layout_width="match_parent"
+            android:layout_height="151dp">
+        </ViewFlipper>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#E4E4E4"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#E4E4E4">
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#383838"
+                android:textStyle="bold"
+                android:text="ĐIỆN THOẠI KHUYẾN MÃI HOT"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:background="#E4E4E4">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </LinearLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>
