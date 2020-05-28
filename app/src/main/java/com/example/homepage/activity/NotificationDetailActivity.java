@@ -1,6 +1,7 @@
 package com.example.homepage.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,10 +10,18 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.homepage.R;
 import com.google.android.material.navigation.NavigationView;
@@ -21,7 +30,10 @@ public class NotificationDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private DrawerLayout drawer;
+    private TextView tvTitle, tvContent;
+    private ImageView imgNoti;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,9 +88,19 @@ public class NotificationDetailActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void Initial (){
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawerLayout);
+        tvTitle = findViewById(R.id.tvTitle);
+        tvContent = findViewById(R.id.tvContent);
+        imgNoti = findViewById(R.id.imgNoti);
+        int img = getIntent().getIntExtra("img", -1);
+        String strTitle = getIntent().getStringExtra("title");
+        String strContent = getIntent().getStringExtra("content");
+        imgNoti.setImageResource(img);
+        tvTitle.setText(strTitle);
+        tvContent.setText(strContent);
     }
 }

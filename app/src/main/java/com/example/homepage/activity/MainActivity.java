@@ -9,11 +9,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Slide;
@@ -58,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
 
         // Add notification
-        addNotification(2, R.string.noti1_title, R.string.noti1_content);
-        addNotification(4, R.string.noti2_title, R.string.noti2_content);
-        addNotification(3, R.string.noti3_title, R.string.noti3_content);
+        addNotification(1, R.string.noti1_title, R.string.noti1_content, R.drawable.s2);
+        addNotification(3, R.string.noti3_title, R.string.noti3_content, R.drawable.s3);
+        addNotification(2, R.string.noti2_title, R.string.noti2_content, R.drawable.s4);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -123,12 +126,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void addNotification(int id, int notiTitle, int notiContent) {
+    private void addNotification(int id, int notiTitle, int notiContent, int img) {
         String title = getString(notiTitle);
         String content = getString(notiContent);
+        Bitmap picture = BitmapFactory.decodeResource(getResources(), img);
         Intent notificationIntent = new Intent(this, NotificationDetailActivity.class);
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        notificationIntent.putExtra("id", id);
+        notificationIntent.putExtra("img", img);
         notificationIntent.putExtra("title", title);
         notificationIntent.putExtra("content", content);
         PendingIntent pendIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -137,7 +141,11 @@ public class MainActivity extends AppCompatActivity {
                 .setSmallIcon(R.drawable.logo)
                 .setContentTitle(title)
                 .setContentText(content)
+                .setStyle(new NotificationCompat.BigPictureStyle()
+                        .bigPicture(picture)
+                        .bigLargeIcon(null))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
                 .setContentIntent(pendIntent);
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(id, builder.build());
@@ -164,4 +172,5 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }
