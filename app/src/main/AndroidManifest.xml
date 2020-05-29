@@ -9,20 +9,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.NotificationDetailActivity"
-                  android:launchMode="singleTop"
-                  android:parentActivityName=".activity.NotificationManagerActivity"></activity>
-        <activity android:name=".activity.NotificationManagerActivity"
-                  android:launchMode="singleTop"
+        <activity android:name=".activity.ProductDetailActivity"></activity>
+        <activity android:name=".activity.TabletActivity"
                   android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".activity.LaptopActivity"
+                  android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".activity.PhoneActivity"
+                  android:parentActivityName=".activity.MainActivity"/>
+        <activity
+            android:name=".activity.NotificationDetailActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.NotificationManagerActivity" />
+        <activity
+            android:name=".activity.NotificationManagerActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

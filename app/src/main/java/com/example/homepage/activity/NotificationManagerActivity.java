@@ -33,7 +33,6 @@ import java.util.ArrayList;
 
 public class NotificationManagerActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private NavigationView navigationView;
     private DrawerLayout drawer;
     private ListView listNotification;
     private Integer[] title = {R.string.noti1_title, R.string.noti2_title, R.string.noti3_title};
@@ -127,7 +126,6 @@ public class NotificationManagerActivity extends AppCompatActivity {
 
     private void Initial (){
         toolbar = findViewById(R.id.toolbar);
-        navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawerLayout);
     }
 

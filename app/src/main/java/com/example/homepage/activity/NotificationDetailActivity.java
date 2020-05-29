@@ -28,7 +28,6 @@ import com.google.android.material.navigation.NavigationView;
 
 public class NotificationDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private NavigationView navigationView;
     private DrawerLayout drawer;
     private TextView tvTitle, tvContent;
     private ImageView imgNoti;
@@ -89,7 +88,6 @@ public class NotificationDetailActivity extends AppCompatActivity {
 
     private void Initial (){
         toolbar = findViewById(R.id.toolbar);
-        navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawerLayout);
         tvTitle = findViewById(R.id.tvTitle);
         tvContent = findViewById(R.id.tvContent);
