@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         String title = getString(notiTitle);
         String content = getString(notiContent);
         Bitmap picture = BitmapFactory.decodeResource(getResources(), img);
+
         Intent notificationIntent = new Intent(this, NotificationDetailActivity.class);
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         notificationIntent.putExtra("img", img);
@@ -139,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "NotificationChannel")
                 .setSmallIcon(R.drawable.logo)
+                .setLargeIcon(picture)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setStyle(new NotificationCompat.BigPictureStyle()

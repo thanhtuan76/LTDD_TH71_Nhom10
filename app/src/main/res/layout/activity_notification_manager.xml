@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity"
+    tools:context=".activity.NotificationManagerActivity"
     tools:openDrawer="start">
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -21,14 +21,10 @@
                 android:layout_height="70dp"
                 android:background="#D2192B">
             </androidx.appcompat.widget.Toolbar>
-
-            <LinearLayout
+            <ListView
+                android:id="@+id/listNotification"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
@@ -39,5 +35,4 @@
             app:menu="@menu/drawer_menu"
             />
     </androidx.drawerlayout.widget.DrawerLayout>
-
 </LinearLayout>

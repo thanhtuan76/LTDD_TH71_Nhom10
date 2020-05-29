@@ -13,14 +13,26 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.homepage.R;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 public class NotificationManagerActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private DrawerLayout drawer;
+    private ListView listNotification;
+//    private String[] itemTitle = {getString(R.string.noti1_title), getString(R.string.noti2_title), getString(R.string.noti3_title),};
+//    private String[] itemContent = {getString(R.string.noti1_content), getString(R.string.noti2_content), getString(R.string.noti3_content),};
+    private String[] title = {"thong bao 1","thong bao 2","thong bao 3"};
+    private String[] content = {"thong bao 1","thong bao 2","thong bao 3"};
+    private Integer[] imgId = {R.drawable.s2, R.drawable.s4, R.drawable.s3,};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +42,7 @@ public class NotificationManagerActivity extends AppCompatActivity {
         Initial();
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -43,6 +54,28 @@ public class NotificationManagerActivity extends AppCompatActivity {
         actionBar.setLogo(R.drawable.logo);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
+
+        // List notification
+        NotificationAdapter adapter = new NotificationAdapter(this, title, content, imgId);
+        listNotification = findViewById(R.id.listNotification);
+        listNotification.setAdapter(adapter);
+        // Set event
+        listNotification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        Toast.makeText(getApplicationContext(), "Đã chọn thông báo 1 !", Toast.LENGTH_LONG).show();
+                        break;
+                    case 1:
+                        Toast.makeText(getApplicationContext(), "Đã chọn thông báo 2 2 !", Toast.LENGTH_LONG).show();
+                        break;
+                    case 2:
+                        Toast.makeText(getApplicationContext(), "Đã chọn thông báo 3 !", Toast.LENGTH_LONG).show();
+                        break;
+                }
+            }
+        });
     }
 
     @Override

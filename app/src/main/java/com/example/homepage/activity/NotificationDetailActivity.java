@@ -33,7 +33,6 @@ public class NotificationDetailActivity extends AppCompatActivity {
     private TextView tvTitle, tvContent;
     private ImageView imgNoti;
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +87,6 @@ public class NotificationDetailActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void Initial (){
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.nav_view);
