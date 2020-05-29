@@ -7,17 +7,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.homepage.R;
 
-import java.util.ArrayList;
-
-public class NotificationAdapter extends ArrayAdapter<String> {
+public class NotificationAdapter extends ArrayAdapter<Integer> {
     private final Activity context;
-    private final String[] title, content;
+    private final Integer[] title, content;
     private final Integer[] imgid;
 
-    public NotificationAdapter(Activity context, String[] title, String[] content, Integer[] imgid) {
+    public NotificationAdapter(Activity context, Integer[] title, Integer[] content, Integer[] imgid) {
         super(context, R.layout.notification, title);
         this.context = context;
         this.title = title;

@@ -5,10 +5,18 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,11 +36,9 @@ public class NotificationManagerActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private ListView listNotification;
-    private String[] title = new String [] {getString(R.string.noti1_title), getString(R.string.noti2_title), getString(R.string.noti3_title),};
-    private String[] content = new String []  {getString(R.string.noti1_content), getString(R.string.noti2_content), getString(R.string.noti3_content),};
-//    private String[] title = {"thong bao 1","thong bao 2","thong bao 3"};
-//    private String[] content = {"thong bao 1","thong bao 2","thong bao 3"};
-    private Integer[] imgId = {R.drawable.s2, R.drawable.s4, R.drawable.s3,};
+    private Integer[] title = {R.string.noti1_title, R.string.noti2_title, R.string.noti3_title};
+    private Integer[] content = {R.string.noti1_content, R.string.noti2_content, R.string.noti3_content};
+    private Integer[] imgId = {R.drawable.s2, R.drawable.s4, R.drawable.s3};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +69,25 @@ public class NotificationManagerActivity extends AppCompatActivity {
         listNotification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), NotificationDetailActivity.class);
                 switch (position) {
                     case 0:
-                        Toast.makeText(getApplicationContext(), "Đã chọn thông báo 1 !", Toast.LENGTH_LONG).show();
+                        intent.putExtra("title", getString(title[0]));
+                        intent.putExtra("content", getString(content[0]));
+                        intent.putExtra("img", imgId[0]);
+                        startActivity(intent);
                         break;
                     case 1:
-                        Toast.makeText(getApplicationContext(), "Đã chọn thông báo 2 2 !", Toast.LENGTH_LONG).show();
+                        intent.putExtra("title", getString(title[1]));
+                        intent.putExtra("content", getString(content[1]));
+                        intent.putExtra("img", imgId[1]);
+                        startActivity(intent);
                         break;
                     case 2:
-                        Toast.makeText(getApplicationContext(), "Đã chọn thông báo 3 !", Toast.LENGTH_LONG).show();
+                        intent.putExtra("title", getString(title[2]));
+                        intent.putExtra("content", getString(content[2]));
+                        intent.putExtra("img", imgId[2]);
+                        startActivity(intent);
                         break;
                 }
             }
@@ -114,4 +130,5 @@ public class NotificationManagerActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawerLayout);
     }
+
 }

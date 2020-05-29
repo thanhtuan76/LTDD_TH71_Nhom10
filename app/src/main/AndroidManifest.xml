@@ -10,8 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".activity.NotificationDetailActivity"
+                  android:launchMode="singleTop"
                   android:parentActivityName=".activity.NotificationManagerActivity"></activity>
-        <activity android:name=".activity.NotificationManagerActivity" />
+        <activity android:name=".activity.NotificationManagerActivity"
+                  android:launchMode="singleTop"
+                  android:parentActivityName=".activity.MainActivity"/>
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTop"
