@@ -28,10 +28,10 @@ public class NotificationManagerActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private ListView listNotification;
-//    private String[] itemTitle = {getString(R.string.noti1_title), getString(R.string.noti2_title), getString(R.string.noti3_title),};
-//    private String[] itemContent = {getString(R.string.noti1_content), getString(R.string.noti2_content), getString(R.string.noti3_content),};
-    private String[] title = {"thong bao 1","thong bao 2","thong bao 3"};
-    private String[] content = {"thong bao 1","thong bao 2","thong bao 3"};
+    private String[] title = new String [] {getString(R.string.noti1_title), getString(R.string.noti2_title), getString(R.string.noti3_title),};
+    private String[] content = new String []  {getString(R.string.noti1_content), getString(R.string.noti2_content), getString(R.string.noti3_content),};
+//    private String[] title = {"thong bao 1","thong bao 2","thong bao 3"};
+//    private String[] content = {"thong bao 1","thong bao 2","thong bao 3"};
     private Integer[] imgId = {R.drawable.s2, R.drawable.s4, R.drawable.s3,};
 
     @Override

@@ -10,10 +10,13 @@ import android.widget.TextView;
 
 import com.example.homepage.R;
 
+import java.util.ArrayList;
+
 public class NotificationAdapter extends ArrayAdapter<String> {
     private final Activity context;
     private final String[] title, content;
     private final Integer[] imgid;
+
     public NotificationAdapter(Activity context, String[] title, String[] content, Integer[] imgid) {
         super(context, R.layout.notification, title);
         this.context = context;
