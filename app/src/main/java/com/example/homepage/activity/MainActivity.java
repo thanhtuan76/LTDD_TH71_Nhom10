@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        actionBar.setLogo(R.drawable.logo);
-        actionBar.setDisplayUseLogoEnabled(true);
+//        actionBar.setLogo(R.drawable.logo);
+//        actionBar.setDisplayUseLogoEnabled(true);
 
         actionBar.setTitle("");
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //View flipper
+    //View flipper function
     public void flip_img(int i){
         ImageView view = new ImageView(this);
         view.setBackgroundResource(i);
