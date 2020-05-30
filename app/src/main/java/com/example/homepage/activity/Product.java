@@ -5,9 +5,6 @@ public class Product {
     private String prodPrice;
     private int prodImg;
 
-    public Product(){
-    }
-
     public Product(String name, String price, int img) {
         setProdName(name);
         setProdPrice(price);

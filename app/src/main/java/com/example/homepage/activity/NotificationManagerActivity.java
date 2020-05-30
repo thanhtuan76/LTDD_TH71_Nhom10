@@ -34,6 +34,7 @@ import java.util.ArrayList;
 public class NotificationManagerActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DrawerLayout drawer;
+    private NavigationView navigationView;
     private ListView listNotification;
     private Integer[] title = {R.string.noti1_title, R.string.noti2_title, R.string.noti3_title};
     private Integer[] content = {R.string.noti1_content, R.string.noti2_content, R.string.noti3_content};
@@ -46,6 +47,33 @@ public class NotificationManagerActivity extends AppCompatActivity {
 
         Initial();
         setSupportActionBar(toolbar);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_phone:
+                        Intent phoneIntent = new Intent(getApplicationContext(), PhoneActivity.class);
+                        startActivity(phoneIntent);
+                        break;
+                    case R.id.nav_latop:
+                        Intent laptopIntent = new Intent(getApplicationContext(), LaptopActivity.class);
+                        startActivity(laptopIntent);
+                        break;
+                    case R.id.nav_tablet:
+                        Intent tabletIntent = new Intent(getApplicationContext(), TabletActivity.class);
+                        startActivity(tabletIntent);
+                        break;
+                    case R.id.nav_notification:
+                        Intent notificationIntent = new Intent(getApplicationContext(), NotificationManagerActivity.class);
+                        startActivity(notificationIntent);
+                        break;
+                }
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -62,9 +90,9 @@ public class NotificationManagerActivity extends AppCompatActivity {
 
         // List notification
         NotificationAdapter adapter = new NotificationAdapter(this, title, content, imgId);
-        listNotification = findViewById(R.id.listNotification);
         listNotification.setAdapter(adapter);
-        // Set event
+
+        // Set list event
         listNotification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -126,7 +154,9 @@ public class NotificationManagerActivity extends AppCompatActivity {
 
     private void Initial (){
         toolbar = findViewById(R.id.toolbar);
+        navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawerLayout);
+        listNotification = findViewById(R.id.listNotification);
     }
 
 }

@@ -1,38 +1,39 @@
 package com.example.homepage.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+        import androidx.annotation.NonNull;
+        import androidx.appcompat.app.ActionBar;
+        import androidx.appcompat.app.ActionBarDrawerToggle;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.widget.Toolbar;
+        import androidx.core.view.GravityCompat;
+        import androidx.drawerlayout.widget.DrawerLayout;
+        import androidx.recyclerview.widget.GridLayoutManager;
+        import androidx.recyclerview.widget.LinearLayoutManager;
+        import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.view.Menu;
+        import android.view.MenuInflater;
+        import android.view.MenuItem;
 
-import com.example.homepage.R;
-import com.google.android.material.navigation.NavigationView;
+        import com.example.homepage.R;
+        import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
 public class PhoneActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
-    private DrawerLayout drawer;
     private RecyclerView recyclerView;
+    private DrawerLayout drawer;
     private List<Product> listPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phone);
+        setContentView(R.layout.activity_tablet);
 
         Initial();
         setSupportActionBar(toolbar);
@@ -43,8 +44,6 @@ public class PhoneActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()) {
                     case R.id.nav_phone:
-                        Intent phoneIntent = new Intent(getApplicationContext(), PhoneActivity.class);
-                        startActivity(phoneIntent);
                         break;
                     case R.id.nav_latop:
                         Intent laptopIntent = new Intent(getApplicationContext(), LaptopActivity.class);
@@ -64,6 +63,19 @@ public class PhoneActivity extends AppCompatActivity {
             }
         });
 
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        // Navigation bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setLogo(R.drawable.logo);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setTitle("");
+
         listPhone = new ArrayList<>();
         listPhone.add(new Product("IPhone 11 Pro Max 512GB","43.990.000 ₫",R.drawable.ip11pm));
         listPhone.add(new Product("IPhone Xs Max 256GB","32.990.000 ₫",R.drawable.ipxsm));
@@ -77,21 +89,8 @@ public class PhoneActivity extends AppCompatActivity {
         listPhone.add(new Product("Realme 5i 4GB-64GB","3.690.000 ₫",R.drawable.rm5i));
 
         ProductAdapter myAdapter = new ProductAdapter(this, listPhone);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+//        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
         recyclerView.setAdapter(myAdapter);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        // Navigation bar
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        actionBar.setLogo(R.drawable.logo);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setTitle("");
     }
 
     @Override
@@ -103,18 +102,10 @@ public class PhoneActivity extends AppCompatActivity {
         }
     }
 
-    private void Initial (){
-        toolbar = findViewById(R.id.toolbar);
-        recyclerView = findViewById(R.id.recyclerview);
-        navigationView = findViewById(R.id.nav_view);
-        drawer = findViewById(R.id.drawerLayout);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_bar, menu);
-        inflater.inflate(R.menu.drawer_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -132,4 +123,12 @@ public class PhoneActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private void Initial (){
+        toolbar = findViewById(R.id.toolbar);
+        navigationView = findViewById(R.id.nav_view);
+        drawer = findViewById(R.id.drawerLayout);
+        recyclerView = findViewById(R.id.recyclerview);
+    }
 }
+

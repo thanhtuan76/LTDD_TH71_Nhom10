@@ -10,12 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".activity.ProductDetailActivity"></activity>
-        <activity android:name=".activity.TabletActivity"
-                  android:parentActivityName=".activity.MainActivity"/>
-        <activity android:name=".activity.LaptopActivity"
-                  android:parentActivityName=".activity.MainActivity"/>
-        <activity android:name=".activity.PhoneActivity"
-                  android:parentActivityName=".activity.MainActivity"/>
+        <activity
+            android:name=".activity.TabletActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.MainActivity"/>
+        <activity
+            android:name=".activity.LaptopActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.MainActivity"/>
+        <activity
+            android:name=".activity.PhoneActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.MainActivity"/>
         <activity
             android:name=".activity.NotificationDetailActivity"
             android:launchMode="singleTop"

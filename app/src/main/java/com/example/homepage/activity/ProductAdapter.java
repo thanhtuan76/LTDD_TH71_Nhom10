@@ -1,5 +1,6 @@
 package com.example.homepage.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homepage.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
@@ -27,9 +29,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view;
-        LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.cardview_product, parent, false);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View view = inflater.inflate(R.layout.cardview_product, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -38,14 +39,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         holder.tvProdItemName.setText(mData.get(position).getProdName());
         holder.tvProdItemPrice.setText(mData.get(position).getProdPrice());
         holder.imgProdItem.setImageResource(mData.get(position).getProdImg());
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent phoneIntent = new Intent(mContext, ProductDetailActivity.class);
-                phoneIntent.putExtra("prod_name", mData.get(position).getProdName());
-                phoneIntent.putExtra("prod_img", mData.get(position).getProdImg());
-                phoneIntent.putExtra("prod_price", mData.get(position).getProdPrice());
-                mContext.startActivity(phoneIntent);
+                Intent productIntent = new Intent(mContext, ProductDetailActivity.class);
+                productIntent.putExtra("prod_name", mData.get(position).getProdName());
+                productIntent.putExtra("prod_img", mData.get(position).getProdImg());
+                productIntent.putExtra("prod_price", mData.get(position).getProdPrice());
+                mContext.startActivity(productIntent);
             }
         });
     }
@@ -55,7 +57,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         return mData.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvProdItemName;
         TextView tvProdItemPrice;
         ImageView imgProdItem;
@@ -67,7 +69,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             tvProdItemName = view.findViewById(R.id.tvProdItemName);
             tvProdItemPrice = view.findViewById(R.id.tvNotiItemTitle);
             imgProdItem = view.findViewById(R.id.imgProdItem);
-
         }
     }
 }
