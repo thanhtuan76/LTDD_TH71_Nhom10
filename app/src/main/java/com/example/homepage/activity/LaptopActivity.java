@@ -84,9 +84,9 @@ public class LaptopActivity extends AppCompatActivity {
         listLaptop.add(new Product("Asus D570DD-E4027T R5-3500U/4GB/256GB/4GB GTX1050/WIN10","10.490.000 ₫",R.drawable.asusd570dd));
         listLaptop.add(new Product("HP 15s-du0059TU Pentium N5000/4GB/1TB/WIN10","9.890.000₫",R.drawable.hp15s));
 
-        ProductAdapter myAdapter = new ProductAdapter(this, listLaptop);
-//        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-        recyclerView.setAdapter(myAdapter);
+        ProductAdapter adapter = new ProductAdapter(this, listLaptop);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
     }
 
     @Override

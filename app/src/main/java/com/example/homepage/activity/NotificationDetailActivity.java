@@ -29,6 +29,7 @@ import com.google.android.material.navigation.NavigationView;
 public class NotificationDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DrawerLayout drawer;
+    private NavigationView navigationView;
     private TextView tvTitle, tvContent;
     private ImageView imgNoti;
 
@@ -40,8 +41,34 @@ public class NotificationDetailActivity extends AppCompatActivity {
         Initial();
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_phone:
+                        Intent phoneIntent = new Intent(getApplicationContext(), PhoneActivity.class);
+                        startActivity(phoneIntent);
+                        break;
+                    case R.id.nav_latop:
+                        Intent laptopIntent = new Intent(getApplicationContext(), LaptopActivity.class);
+                        startActivity(laptopIntent);
+                        break;
+                    case R.id.nav_tablet:
+                        Intent tabletIntent = new Intent(getApplicationContext(), TabletActivity.class);
+                        startActivity(tabletIntent);
+                        break;
+                    case R.id.nav_notification:
+                        Intent notificationIntent = new Intent(getApplicationContext(), NotificationManagerActivity.class);
+                        startActivity(notificationIntent);
+                        break;
+                }
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -87,14 +114,18 @@ public class NotificationDetailActivity extends AppCompatActivity {
     }
 
     private void Initial (){
+        navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawerLayout);
         tvTitle = findViewById(R.id.tvTitle);
         tvContent = findViewById(R.id.tvContent);
         imgNoti = findViewById(R.id.imgNoti);
+
+        // Set notification information
         int img = getIntent().getIntExtra("img", -1);
         String strTitle = getIntent().getStringExtra("title");
         String strContent = getIntent().getStringExtra("content");
+
         imgNoti.setImageResource(img);
         tvTitle.setText(strTitle);
         tvContent.setText(strContent);

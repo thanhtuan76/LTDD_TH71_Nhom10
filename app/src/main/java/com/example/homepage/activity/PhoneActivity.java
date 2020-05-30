@@ -88,9 +88,9 @@ public class PhoneActivity extends AppCompatActivity {
         listPhone.add(new Product("Vsmart Active 3 6GB-64GB","3.990.000 ₫",R.drawable.vsa3));
         listPhone.add(new Product("Realme 5i 4GB-64GB","3.690.000 ₫",R.drawable.rm5i));
 
-        ProductAdapter myAdapter = new ProductAdapter(this, listPhone);
-//        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-        recyclerView.setAdapter(myAdapter);
+        ProductAdapter adapter = new ProductAdapter(this, listPhone);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
     }
 
     @Override

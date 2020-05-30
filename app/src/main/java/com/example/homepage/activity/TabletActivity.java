@@ -86,9 +86,9 @@ public class TabletActivity extends AppCompatActivity {
         listTablet.add(new Product("Samsung Galaxy Tab A  Plus 8.0 (2019)  ", "6.990.000 ₫", R.drawable.sstabaplus8));
         listTablet.add(new Product("Huawei MediaPad T5 10 ", "4.990.000 ₫", R.drawable.hwt5));
 
-        ProductAdapter myAdapter = new ProductAdapter(this, listTablet);
-//        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-        recyclerView.setAdapter(myAdapter);
+        ProductAdapter adapter = new ProductAdapter(this, listTablet);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
     }
 
     @Override
