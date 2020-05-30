@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_phone"
+        android:title="Phone"
+        android:icon="@drawable/i_phone"/>
+    <item
+        android:id="@+id/nav_laptop"
+        android:title="Laptop"
+        android:icon="@drawable/i_laptop"/>
+    <item
+        android:id="@+id/nav_tablet"
+        android:title="Tablet"
+        android:icon="@drawable/i_tablet"/>
+    <item
+        android:id="@+id/nav_others"
+        android:title="Others"
+        android:icon="@drawable/i_hphone"/>
+    <item
+        android:id="@+id/nav_watch"
+        android:title="Watch"
+        android:icon="@drawable/i_watch"/>
+</menu>
