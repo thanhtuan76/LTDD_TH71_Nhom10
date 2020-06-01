@@ -17,11 +17,11 @@
             android:icon="@drawable/i_laptop"
             android:title="Laptop" />
         <item
-            android:id="@+id/others"
+            android:id="@+id/nav_others"
             android:icon="@drawable/i_hphone"
             android:title="Phụ kiện" />
         <item
-            android:id="@+id/watch"
+            android:id="@+id/nav_watch"
             android:icon="@drawable/i_watch"
             android:title="Đồng hồ" />
     </group>
@@ -29,11 +29,16 @@
     <item android:title="Others">
         <menu>
             <item
-                android:id="@+id/info"
+                android:id="@+id/nav_notification"
+                android:icon="@drawable/ic_noti"
+                android:title="Thông báo"
+                />
+            <item
+                android:id="@+id/nav_info"
                 android:icon="@drawable/ic_doc"
                 android:title="Thông tin" />
             <item
-                android:id="@+id/bill"
+                android:id="@+id/nav_bill"
                 android:icon="@drawable/ic_bill"
                 android:title="Thu hộ" />
         </menu>
