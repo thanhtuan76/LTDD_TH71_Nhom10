@@ -3,7 +3,7 @@
     android:clickable="true"
     android:id="@+id/cardview_product"
     android:layout_width="200dp"
-    android:layout_height="250dp"
+    android:layout_height="245dp"
     android:layout_margin="3dp">
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_height="180dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:background="#2d2d2d"/>
+            android:background="#FFFFFF"/>
         <TextView
             android:id="@+id/tvProdItemName"
             android:text="Name"
@@ -23,8 +23,10 @@
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:gravity="center_horizontal"/>
+            android:layout_margin="3dp"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:ellipsize="end"/>
         <TextView
             android:id="@+id/tvProdItemPrice"
             android:text="Price"
@@ -32,7 +34,7 @@
             android:textColor="@android:color/darker_gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_margin="3dp"
             android:gravity="center_horizontal"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

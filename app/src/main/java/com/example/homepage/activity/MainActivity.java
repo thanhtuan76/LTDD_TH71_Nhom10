@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 drawer.closeDrawer(GravityCompat.START);
-                return true;
+                return false;
             }
         });
 
