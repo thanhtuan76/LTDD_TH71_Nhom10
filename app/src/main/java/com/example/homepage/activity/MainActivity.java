@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.s3,
             R.drawable.s4,
             R.drawable.s5,
-            R.drawable.s6,
-            R.drawable.s7
+            R.drawable.s6
     };
 /// ------------------------------------------------------ ///
     @Override
@@ -194,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.nav_cart:
                 return true;
-            case R.id.nav_notification:
+            case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);
                 startActivity(NotificationManagerIntent);
                 return true;
