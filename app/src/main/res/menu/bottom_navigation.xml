@@ -9,7 +9,7 @@
         android:title="Giỏ hàng"
         android:icon="@drawable/ic_shopping_cart"/>
     <item
-        android:id="@+id/nav_notification"
-        android:title="Thông báo"
-        android:icon="@drawable/ic_noti"/>
+        android:id="@+id/nav_users"
+        android:title="Tài khoản"
+        android:icon="@drawable/ic_acc"/>
 </menu>

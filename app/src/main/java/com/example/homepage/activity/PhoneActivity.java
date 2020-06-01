@@ -115,7 +115,7 @@ public class PhoneActivity extends AppCompatActivity {
         switch (id) {
             case R.id.nav_cart:
                 return true;
-            case R.id.nav_notification:
+            case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);
                 startActivity(NotificationManagerIntent);
                 return true;

@@ -87,9 +87,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="?android:attr/windowBackground"
-                app:menu="@menu/bottom_navigation"
-                app:itemIconTint="#c20808"
-                app:itemTextColor="#c20808"/>
+                app:backgroundTint="#FFFFFF"
+                app:itemTextColor="@color/nav_item_colors"
+                app:itemIconTint="@color/nav_item_colors"
+                app:menu="@menu/bottom_navigation" />
         </RelativeLayout>
 
         <com.google.android.material.navigation.NavigationView
