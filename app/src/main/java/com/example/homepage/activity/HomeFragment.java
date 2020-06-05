@@ -1,11 +1,9 @@
 package com.example.homepage.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,31 +18,48 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
+    private ViewFlipper view_flipper;
+    private RecyclerView recyclerView;
 
+    //View flipper
+    int[] imgs = {
+            R.drawable.s1,
+            R.drawable.s2,
+            R.drawable.s3,
+            R.drawable.s4,
+            R.drawable.s5,
+            R.drawable.s6
+    };
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    public static HomeFragment newInstance(){
-        return new HomeFragment();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_origin, container, false);
 
-        BottomNavigationView bottomNavigationView = view.findViewById(R.id.nav_home);
-        bottomNavigationView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in = new Intent(getActivity(), MainActivity.class);
-                startActivity(in);
-            }
-        });
+        view_flipper = view.findViewById(R.id.v_flipper);
+        recyclerView = view.findViewById(R.id.recycleViewMain);
+
+        //View flipper
+        for (int i = 0; i < imgs.length; i++) {
+            flip_img(imgs[i]);
+        }
         return view;
+    }
+
+    //View flipper function
+    public void flip_img(int i) {
+        ImageView view = new ImageView(getActivity());
+        view.setBackgroundResource(i);
+        view_flipper.addView(view);
+        view_flipper.setFlipInterval(4000);
+        view_flipper.setAutoStart(true);
+        view_flipper.setInAnimation(getActivity(), android.R.anim.slide_in_left);
+        view_flipper.setOutAnimation(getActivity(), android.R.anim.slide_out_right);
     }
 
 }

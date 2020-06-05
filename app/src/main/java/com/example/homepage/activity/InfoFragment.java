@@ -19,11 +19,6 @@ public class InfoFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static InfoFragment newInstance(){
-        return new InfoFragment();
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
