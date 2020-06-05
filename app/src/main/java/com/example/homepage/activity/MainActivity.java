@@ -1,6 +1,5 @@
 package com.example.homepage.activity;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,13 +9,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,9 +27,17 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homepage.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NavigationView navigationView;
     private DrawerLayout drawer;
+    private BottomNavigationView bottomNav;
+    private boolean isFrameDisplayed = false;
+
+
+/// ------------------------------------------------------ ///
 
     //View flipper
     int[] imgs={
@@ -45,13 +61,39 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.s5,
             R.drawable.s6
     };
-/// ------------------------------------------------------ ///
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Initial();
         setSupportActionBar(toolbar);
+
+        //
+
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        HomeFragment homeFragment = HomeFragment.newInstance();
+                        fragmentTransaction.add(R.id.fragment_container, homeFragment).addToBackStack(null).commit();
+                        break;
+                    case R.id.nav_cart:
+                        CartFragment cartFragment = CartFragment.newInstance();
+                        fragmentTransaction.add(R.id.fragment_container, cartFragment).addToBackStack(null).commit();
+                        break;
+                    case R.id.nav_info:
+                        InfoFragment infoFragment = InfoFragment.newInstance();
+                        fragmentTransaction.add(R.id.fragment_container, infoFragment).addToBackStack(null).commit();
+                        break;
+                }
+                return true;
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -79,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 
         // Create notification channel
         createNotificationChannel();
@@ -113,6 +156,17 @@ public class MainActivity extends AppCompatActivity {
 /// ------------------------------------------------------ ///
 
     ///  ---------   FUNCTION   --------- ///
+
+    private void Initial (){
+        toolbar = findViewById(R.id.toolbar);
+        view_flipper = findViewById(R.id.v_flipper);
+        recyclerView = findViewById(R.id.recycleViewMain);
+        navigationView = findViewById(R.id.nav_view);
+        drawer = findViewById(R.id.drawerLayout);
+        bottomNav = findViewById(R.id.bottom_nav);
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -140,13 +194,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void Initial (){
-        toolbar = findViewById(R.id.toolbar);
-        view_flipper = findViewById(R.id.v_flipper);
-        recyclerView = findViewById(R.id.recycleViewMain);
-        navigationView = findViewById(R.id.nav_view);
-        drawer = findViewById(R.id.drawerLayout);
-    }
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
