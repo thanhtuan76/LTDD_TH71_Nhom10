@@ -1,6 +1,5 @@
 package com.example.homepage.activity;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,13 +9,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,9 +28,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homepage.R;
+import com.example.homepage.SplashActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,24 +48,61 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NavigationView navigationView;
     private DrawerLayout drawer;
+    private BottomNavigationView bottomNav;
+    private boolean isFrameDisplayed = false;
+    private static int SPLASH_TIME_OUT = 4000;
 
+
+    /// ------------------------------------------------------ ///
     //View flipper
-    int[] imgs={
+    int[] imgs = {
             R.drawable.s1,
             R.drawable.s2,
             R.drawable.s3,
             R.drawable.s4,
             R.drawable.s5,
-            R.drawable.s6,
-            R.drawable.s7
+            R.drawable.s6
     };
-/// ------------------------------------------------------ ///
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Initial();
         setSupportActionBar(toolbar);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent homeIntent = new Intent(MainActivity.this, SplashActivity.class);
+                startActivity(homeIntent);
+                finish();
+            }
+        },SPLASH_TIME_OUT);
+
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        HomeFragment homeFragment = new HomeFragment();
+                        fragmentTransaction.replace(R.id.fragment_container, homeFragment).addToBackStack(null).commit();
+                        break;
+                    case R.id.nav_cart:
+                        CartFragment cartFragment = new CartFragment();
+                        fragmentTransaction.replace(R.id.fragment_container, cartFragment).addToBackStack(null).commit();
+                        break;
+                    case R.id.nav_info:
+                        InfoFragment infoFragment = new InfoFragment();
+                        fragmentTransaction.replace(R.id.fragment_container, infoFragment).addToBackStack(null).commit();
+                        break;
+                }
+                return true;
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -81,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         // Create notification channel
         createNotificationChannel();
 
@@ -103,17 +154,23 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setLogo(R.drawable.logo);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
-
-        actionBar.setTitle("");
-
-        //View flipper
-        for (int i = 0; i < imgs.length; i++){
-            flip_img(imgs[i]);
-        }
     }
 /// ------------------------------------------------------ ///
 
     ///  ---------   FUNCTION   --------- ///
+
+    private void Initial() {
+        toolbar = findViewById(R.id.toolbar);
+        navigationView = findViewById(R.id.nav_view);
+        drawer = findViewById(R.id.drawerLayout);
+        bottomNav = findViewById(R.id.bottom_nav);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        HomeFragment homeFragment = new HomeFragment();
+        fragmentTransaction.add(R.id.fragment_container, homeFragment).addToBackStack(null).commit();
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -121,32 +178,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //View flipper function
-    public void flip_img(int i){
-        ImageView view = new ImageView(this);
-        view.setBackgroundResource(i);
-        view_flipper.addView(view);
-        view_flipper.setFlipInterval(4000);
-        view_flipper.setAutoStart(true);
-        view_flipper.setInAnimation(this, android.R.anim.slide_in_left);
-        view_flipper.setOutAnimation(this, android.R.anim.slide_out_right);
-    }
-
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)){
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
-    }
-
-    private void Initial (){
-        toolbar = findViewById(R.id.toolbar);
-        view_flipper = findViewById(R.id.v_flipper);
-        recyclerView = findViewById(R.id.recycleViewMain);
-        navigationView = findViewById(R.id.nav_view);
-        drawer = findViewById(R.id.drawerLayout);
     }
 
     private void createNotificationChannel() {
@@ -192,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.action_buy:
+            case R.id.nav_cart:
                 return true;
             case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);
