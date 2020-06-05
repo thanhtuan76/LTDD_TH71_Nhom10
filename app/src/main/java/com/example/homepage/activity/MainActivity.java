@@ -42,25 +42,11 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private ViewFlipper view_flipper;
-    private RecyclerView recyclerView;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private BottomNavigationView bottomNav;
-    private boolean isFrameDisplayed = false;
-
 
 /// ------------------------------------------------------ ///
-
-    //View flipper
-    int[] imgs={
-            R.drawable.s1,
-            R.drawable.s2,
-            R.drawable.s3,
-            R.drawable.s4,
-            R.drawable.s5,
-            R.drawable.s6
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,26 +55,23 @@ public class MainActivity extends AppCompatActivity {
         Initial();
         setSupportActionBar(toolbar);
 
-        //
-
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
                 switch (item.getItemId()) {
                     case R.id.nav_home:
-                        HomeFragment homeFragment = HomeFragment.newInstance();
-                        fragmentTransaction.add(R.id.fragment_container, homeFragment).addToBackStack(null).commit();
+                        HomeFragment homeFragment = new HomeFragment();
+                        fragmentTransaction.replace(R.id.fragment_container, homeFragment).addToBackStack(null).commit();
                         break;
                     case R.id.nav_cart:
-                        CartFragment cartFragment = CartFragment.newInstance();
-                        fragmentTransaction.add(R.id.fragment_container, cartFragment).addToBackStack(null).commit();
+                        CartFragment cartFragment = new CartFragment();
+                        fragmentTransaction.replace(R.id.fragment_container, cartFragment).addToBackStack(null).commit();
                         break;
                     case R.id.nav_info:
-                        InfoFragment infoFragment = InfoFragment.newInstance();
-                        fragmentTransaction.add(R.id.fragment_container, infoFragment).addToBackStack(null).commit();
+                        InfoFragment infoFragment = new InfoFragment();
+                        fragmentTransaction.replace(R.id.fragment_container, infoFragment).addToBackStack(null).commit();
                         break;
                 }
                 return true;
@@ -132,8 +115,7 @@ public class MainActivity extends AppCompatActivity {
         addNotification(2, R.string.noti2_title, R.string.noti2_content, R.drawable.s4);
 
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -145,13 +127,6 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setLogo(R.drawable.logo);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
-
-        actionBar.setTitle("");
-
-        //View flipper
-        for (int i = 0; i < imgs.length; i++){
-            flip_img(imgs[i]);
-        }
     }
 /// ------------------------------------------------------ ///
 
@@ -159,30 +134,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void Initial (){
         toolbar = findViewById(R.id.toolbar);
-        view_flipper = findViewById(R.id.v_flipper);
-        recyclerView = findViewById(R.id.recycleViewMain);
         navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawerLayout);
         bottomNav = findViewById(R.id.bottom_nav);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        HomeFragment homeFragment = new HomeFragment();
+        fragmentTransaction.add(R.id.fragment_container, homeFragment).addToBackStack(null).commit();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_bar, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    //View flipper function
-    public void flip_img(int i){
-        ImageView view = new ImageView(this);
-        view.setBackgroundResource(i);
-        view_flipper.addView(view);
-        view_flipper.setFlipInterval(4000);
-        view_flipper.setAutoStart(true);
-        view_flipper.setInAnimation(this, android.R.anim.slide_in_left);
-        view_flipper.setOutAnimation(this, android.R.anim.slide_out_right);
     }
 
     @Override
@@ -193,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -238,8 +202,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.nav_cart:
-                return true;
             case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);
                 startActivity(NotificationManagerIntent);
@@ -249,5 +211,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     ///  ---------  END FUNCTION  --------- ///
-
 }
