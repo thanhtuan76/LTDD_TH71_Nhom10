@@ -33,11 +33,10 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private ViewFlipper view_flipper;
-    private RecyclerView recyclerView;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private BottomNavigationView bottomNav;
+<<<<<<< HEAD
     private boolean isFrameDisplayed = false;
 
     /// ------------------------------------------------------ ///
@@ -50,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.s5,
             R.drawable.s6
     };
+=======
+
+/// ------------------------------------------------------ ///
+>>>>>>> ceb6824843184e58470070eebed660f31539b3bb
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +61,16 @@ public class MainActivity extends AppCompatActivity {
         Initial();
         setSupportActionBar(toolbar);
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> ceb6824843184e58470070eebed660f31539b3bb
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
                 switch (item.getItemId()) {
                     case R.id.nav_home:
                         HomeFragment homeFragment = new HomeFragment();
@@ -121,8 +126,7 @@ public class MainActivity extends AppCompatActivity {
         addNotification(2, R.string.noti2_title, R.string.noti2_content, R.drawable.s4);
 
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -149,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
         HomeFragment homeFragment = new HomeFragment();
         fragmentTransaction.add(R.id.fragment_container, homeFragment).addToBackStack(null).commit();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -210,8 +213,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.nav_cart:
-                return true;
             case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);
                 startActivity(NotificationManagerIntent);
@@ -221,5 +222,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     ///  ---------  END FUNCTION  --------- ///
-
 }

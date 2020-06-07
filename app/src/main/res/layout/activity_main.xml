@@ -43,13 +43,21 @@
             <FrameLayout
                 android:id="@+id/fragment_container"
                 android:layout_width="match_parent"
+<<<<<<< HEAD
                 android:layout_height="match_parent" />
+=======
+                android:layout_height="match_parent"/>
+
+>>>>>>> ceb6824843184e58470070eebed660f31539b3bb
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+<<<<<<< HEAD
 
+=======
+>>>>>>> ceb6824843184e58470070eebed660f31539b3bb
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_nav"
                 android:layout_width="match_parent"

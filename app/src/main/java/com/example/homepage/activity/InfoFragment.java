@@ -19,6 +19,10 @@ public class InfoFragment extends Fragment {
         // Required empty public constructor
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ceb6824843184e58470070eebed660f31539b3bb
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
