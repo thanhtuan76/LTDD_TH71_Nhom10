@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private BottomNavigationView bottomNav;
-<<<<<<< HEAD
     private boolean isFrameDisplayed = false;
 
     /// ------------------------------------------------------ ///
@@ -49,10 +48,7 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.s5,
             R.drawable.s6
     };
-=======
-
 /// ------------------------------------------------------ ///
->>>>>>> ceb6824843184e58470070eebed660f31539b3bb
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +57,6 @@ public class MainActivity extends AppCompatActivity {
         Initial();
         setSupportActionBar(toolbar);
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> ceb6824843184e58470070eebed660f31539b3bb
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
