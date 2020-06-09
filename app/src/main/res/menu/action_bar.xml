@@ -6,8 +6,4 @@
         android:icon="@drawable/ic_noti"
         android:title="Notifications"
         app:showAsAction="ifRoom" />
-    <item android:id="@+id/action_buy"
-        android:icon="@drawable/ic_shopping_cart"
-        android:title="Buy"
-        app:showAsAction="ifRoom" />
 </menu>
