@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.SigninActivity"></activity>
+        <activity android:name=".activity.SignupActivity"
+            android:parentActivityName=".activity.SigninActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.SigninActivity"
+            android:parentActivityName=".activity.MainActivity"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTop"

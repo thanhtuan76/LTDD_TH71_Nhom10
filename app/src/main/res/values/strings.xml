@@ -11,5 +11,14 @@
     <string name="noti2_content">Giảm ngay 2 triệu khi khách hàng lên đời Samsung Galaxy S20 Series. Tiết kiệm đến 17 triệu đồng.</string>
     <string name="noti3_title">Mua ngay OPPO Reno 2F với giá cực sốc</string>
     <string name="noti3_content">Khi mua OPPO Reno 2F 2020 quý khách hàng sẽ được giảm đến 1.5 triệu. Đồng thời, khi mua hàng online, quý khách còn nhận được phiếu mua hàng trị giá đến 400.000đ.</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>
 

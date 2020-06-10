@@ -25,10 +25,19 @@ public class InfoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
         btnSignIn = view.findViewById(R.id.btnSignIn);
         btnSignUp = view.findViewById(R.id.btnSignUp);
+
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SigninActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SignupActivity.class);
                 startActivity(intent);
             }
         });
