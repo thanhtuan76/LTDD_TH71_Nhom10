@@ -12,7 +12,7 @@ import com.example.homepage.R;
 
 public class SigninActivity extends AppCompatActivity {
     private EditText txtUsername, txtPass;
-    private Button btnSignUp, btnDone;
+    private Button btnSignUp, btnSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class SigninActivity extends AppCompatActivity {
             }
         });
 
-        btnDone.setOnClickListener(new View.OnClickListener() {
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -39,7 +39,7 @@ public class SigninActivity extends AppCompatActivity {
     public void Initial() {
         txtUsername = findViewById(R.id.txtUsername);
         txtPass = findViewById(R.id.txtPassword);
-        btnSignUp = findViewById(R.id.btnSubSignUp);
-        btnDone = findViewById(R.id.btnDone);
+        btnSignUp = findViewById(R.id.btnActSignUp);
+        btnSignIn = findViewById(R.id.btnActSignIn);
     }
 }
