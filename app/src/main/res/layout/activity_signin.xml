@@ -13,14 +13,15 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="220dp"
+            android:layout_marginTop="-30dp"
             android:background="@drawable/login_background"
             android:cropToPadding="true"
             android:scaleType="centerCrop"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="25dp"
             android:text="Đăng nhập"
             android:textSize="40dp"
@@ -73,7 +74,7 @@
             android:id="@+id/btnActSignIn"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="90dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/ic_next"/>
     </LinearLayout>

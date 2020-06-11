@@ -1,14 +1,26 @@
 package com.example.homepage.activity;
 
 public class Product {
+    private int prodId;
     private String prodName;
-    private String prodPrice;
-    private int prodImg;
+    private int prodPrice;
+    private String prodImg;
+    private String prodDesc;
 
-    public Product(String name, String price, int img) {
+    public Product(int id, String name, int price, String img, String desc) {
+        setProdId(id);
         setProdName(name);
         setProdPrice(price);
         setProdImg(img);
+        setProdDesc(desc);
+    }
+
+    public int getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(int prodId) {
+        this.prodId = prodId;
     }
 
     public String getProdName() {
@@ -19,19 +31,27 @@ public class Product {
         this.prodName = prodName;
     }
 
-    public String getProdPrice() {
+    public int getProdPrice() {
         return prodPrice;
     }
 
-    public void setProdPrice(String prodPrice) {
+    public void setProdPrice(int prodPrice) {
         this.prodPrice = prodPrice;
     }
 
-    public int getProdImg() {
+    public String getProdImg() {
         return prodImg;
     }
 
-    public void setProdImg(int prodImg) {
+    public void setProdImg(String prodImg) {
         this.prodImg = prodImg;
+    }
+
+    public String getProdDesc() {
+        return prodDesc;
+    }
+
+    public void setProdDesc(String prodDesc) {
+        this.prodDesc = prodDesc;
     }
 }

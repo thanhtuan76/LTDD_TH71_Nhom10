@@ -1,11 +1,10 @@
 package com.example.homepage.activity;
 
 import android.content.Context;
-import android.content.Intent;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,9 +13,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homepage.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     private Context context;
     private List<Product> data;
@@ -35,20 +34,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, final int position) {
-        holder.name.setText(data.get(position).getProdName());
-        holder.price.setText(data.get(position).getProdPrice());
-        holder.img.setImageResource(data.get(position).getProdImg());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ProductDetailActivity.class);
-                intent.putExtra("prod_name", data.get(position).getProdName());
-                intent.putExtra("prod_price", data.get(position).getProdPrice());
-                intent.putExtra("prod_img", data.get(position).getProdImg());
-                context.startActivity(intent);
-            }
-        });
+    public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position) {
+        Product prod = data.get(position);
+        holder.name.setText(prod.getProdName());
+        holder.price.setText(prod.getProdPrice());
+        Picasso.with(context).load(prod.getProdImg()).into(holder.img);
     }
 
     @Override
@@ -56,17 +46,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return data.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView name, price;
-        ImageView img;
-        CardView cardView;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private CardView cardView;
+        private TextView name, price;
+        private ImageView img;
 
-        public ViewHolder(View view) {
-            super(view);
-            cardView = view.findViewById(R.id.cardview_product);
-            name = view.findViewById(R.id.tvProdItemName);
-            price = view.findViewById(R.id.tvProdItemPrice);
-            img = view.findViewById(R.id.imgProdItem);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            cardView = itemView.findViewById(R.id.cardview_product);
+            name = itemView.findViewById(R.id.tvProdItemName);
+            price = itemView.findViewById(R.id.tvProdItemPrice);
+            img = itemView.findViewById(R.id.imgProdItem);
         }
     }
 }
+

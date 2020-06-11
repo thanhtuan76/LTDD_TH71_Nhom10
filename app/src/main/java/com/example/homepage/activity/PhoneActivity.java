@@ -16,9 +16,21 @@ package com.example.homepage.activity;
         import android.view.Menu;
         import android.view.MenuInflater;
         import android.view.MenuItem;
+        import android.widget.ListView;
+        import android.widget.Toast;
 
+        import com.android.volley.Request;
+        import com.android.volley.RequestQueue;
+        import com.android.volley.Response;
+        import com.android.volley.VolleyError;
+        import com.android.volley.toolbox.StringRequest;
+        import com.android.volley.toolbox.Volley;
         import com.example.homepage.R;
         import com.google.android.material.navigation.NavigationView;
+
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
         import java.util.ArrayList;
         import java.util.List;
@@ -28,7 +40,8 @@ public class PhoneActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
-    private List<Product> listPhone;
+    private List<Product> listSP;
+    private String JSON_URL = "https://5ed91adb4378690016c6ac70.mockapi.io/api/SP";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,21 +89,50 @@ public class PhoneActivity extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
 
-        listPhone = new ArrayList<>();
-        listPhone.add(new Product("IPhone 11 Pro Max 512GB","43.990.000 ₫",R.drawable.ip11pm));
-        listPhone.add(new Product("IPhone Xs Max 256GB","32.990.000 ₫",R.drawable.ipxsm));
-        listPhone.add(new Product("Samsung Galaxy S20+","23.990.000 ₫",R.drawable.samsung20));
-        listPhone.add(new Product("Samsung Galaxy Note 10 Lite","13.990.000 ₫",R.drawable.ssn10l));
-        listPhone.add(new Product("Samsung Galaxy A71","10.490.000 ₫",R.drawable.ssa71));
-        listPhone.add(new Product("Huawei Nova 7i","6.990.000 ₫",R.drawable.hn7i));
-        listPhone.add(new Product("Vivo Y50 8GB-128GB","6.290.000 ₫",R.drawable.vvy50));
-        listPhone.add(new Product("Oppo A31 4GB-128GB","4.990.000 ₫",R.drawable.opa31));
-        listPhone.add(new Product("Vsmart Active 3 6GB-64GB","3.990.000 ₫",R.drawable.vsa3));
-        listPhone.add(new Product("Realme 5i 4GB-64GB","3.690.000 ₫",R.drawable.rm5i));
+        listSP = new ArrayList<>();
+        GetData();
+    }
 
-        ProductAdapter adapter = new ProductAdapter(this, listPhone);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+    private void GetData() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,JSON_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_SHORT).show();
+                            JSONArray ProductArray = new JSONArray(response);
+                            int IDSanPham = 0;
+                            String TenSanPham = "";
+                            String HinhAnhSanPham = "";
+                            Integer GiaSanPham = 0;
+                            String MoTaSanPham = "";
+
+                            for (int i = 0; i < ProductArray.length(); i++) {
+
+                                JSONObject jsonObject = ProductArray.getJSONObject(i);
+                                IDSanPham = jsonObject.getInt("IDSanPham");
+                                TenSanPham = jsonObject.getString("TenSanPham");
+                                HinhAnhSanPham = jsonObject.getString("HinhAnhSanPham");
+                                GiaSanPham = jsonObject.getInt("GiaSanPham");
+                                MoTaSanPham = jsonObject.getString("MoTaSanPham");
+                                listSP.add(new Product(IDSanPham, TenSanPham, GiaSanPham, HinhAnhSanPham, MoTaSanPham));
+                            }
+                            ProductAdapter adapter = new ProductAdapter(getApplicationContext(),listSP);
+                            recyclerView.setAdapter(adapter);
+                            recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+                        }
+                        catch (JSONException e){
+                            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
     @Override
@@ -113,8 +155,6 @@ public class PhoneActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.nav_cart:
-                return true;
             case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);
                 startActivity(NotificationManagerIntent);

@@ -16,9 +16,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.homepage.R;
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +39,8 @@ public class TabletActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
-    private List<Product> listTablet;
+    private List<Product> listSP;
+    private String JSON_URL = "https://5ed91adb4378690016c6ac70.mockapi.io/api/SP";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,19 +88,54 @@ public class TabletActivity extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
 
-        listTablet = new ArrayList<>();
-        listTablet.add(new Product("IPad Pro 12.9 2020  WI-FI 4G 1TB ", "51.990.000 ₫", R.drawable.ipadp129));
-        listTablet.add(new Product("IPad Pro 11 WI-FI 512GB ", "31.990.000 ₫", R.drawable.ipadp11));
-        listTablet.add(new Product("Samsung Galaxy Tab S6  (2019) ", "18.490.000 ₫", R.drawable.ssgalaxytabs6));
-        listTablet.add(new Product("iPad Air 3 10.5 Wi-Fi 64GB  ", "13.990.000 ₫", R.drawable.ipadair4g3c));
-        listTablet.add(new Product("iPad 2019 10.2 Wi-Fi  128GB ", "11.990.000 ₫", R.drawable.ipadp10129));
-        listTablet.add(new Product("Huawei MediaPad M5 Lite  64GB ", "7.990.000 ₫", R.drawable.hwm5l));
-        listTablet.add(new Product("Samsung Galaxy Tab A  Plus 8.0 (2019)  ", "6.990.000 ₫", R.drawable.sstabaplus8));
-        listTablet.add(new Product("Huawei MediaPad T5 10 ", "4.990.000 ₫", R.drawable.hwt5));
+        listSP = new ArrayList<>();
+        GetData();
+    }
 
-        ProductAdapter adapter = new ProductAdapter(this, listTablet);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+    private void GetData() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,JSON_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            Toast.makeText(getApplicationContext(),"OKKK",Toast.LENGTH_LONG).show();
+                            JSONArray ProductArray = new JSONArray(response);
+                            int IDSanPham = 0;
+                            String TenSanPham = "";
+                            String HinhAnhSanPham = "";
+                            Integer GiaSanPham = 0;
+                            String MoTaSanPham = "";
+
+                            for (int i = 0; i < ProductArray.length(); i++) {
+
+                                JSONObject jsonObject = ProductArray.getJSONObject(i);
+                                IDSanPham = jsonObject.getInt("IDSanPham");
+                                TenSanPham = jsonObject.getString("TenSanPham");
+                                HinhAnhSanPham = jsonObject.getString("HinhAnhSanPham");
+                                GiaSanPham = jsonObject.getInt("GiaSanPham");
+                                MoTaSanPham = jsonObject.getString("MoTaSanPham");
+                                listSP.add(new Product(IDSanPham, TenSanPham, GiaSanPham, HinhAnhSanPham, MoTaSanPham));
+
+
+                            }
+                            ProductAdapter adapter = new ProductAdapter(getApplicationContext(),listSP);
+                            recyclerView.setAdapter(adapter);
+                            recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+                        }
+                        catch (Exception e){
+                            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"Faillll",Toast.LENGTH_LONG).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(TabletActivity.this);
+        requestQueue.add(stringRequest);
     }
 
     @Override
@@ -111,8 +158,6 @@ public class TabletActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.nav_cart:
-                return true;
             case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);
                 startActivity(NotificationManagerIntent);

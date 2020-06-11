@@ -16,9 +16,20 @@ package com.example.homepage.activity;
         import android.view.Menu;
         import android.view.MenuInflater;
         import android.view.MenuItem;
+        import android.widget.ListView;
+        import android.widget.Toast;
 
+        import com.android.volley.Request;
+        import com.android.volley.RequestQueue;
+        import com.android.volley.Response;
+        import com.android.volley.VolleyError;
+        import com.android.volley.toolbox.StringRequest;
+        import com.android.volley.toolbox.Volley;
         import com.example.homepage.R;
         import com.google.android.material.navigation.NavigationView;
+
+        import org.json.JSONArray;
+        import org.json.JSONObject;
 
         import java.util.ArrayList;
         import java.util.List;
@@ -28,7 +39,8 @@ public class LaptopActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
-    private List<Product> listLaptop;
+    private List<Product> listSP;
+    private String JSON_URL = "https://5ed91adb4378690016c6ac70.mockapi.io/api/SP";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,20 +88,56 @@ public class LaptopActivity extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
 
-        listLaptop= new ArrayList<>();
-        listLaptop.add(new Product("Macbook Pro 13 Touch Bar i5 1.4GHz/8G/128GB (2019)","39.990.000₫",R.drawable.macbookprotb));
-        listLaptop.add(new Product("MSI GF63 8RC-203VN/I5-8300H ","21.990.000₫",R.drawable.msigf6rd));
-        listLaptop.add(new Product("Acer Nitro AN515-43-R84R/NH.Q5XSV.001 ","16.990.000₫",R.drawable.acernitro52019));
-        listLaptop.add(new Product("Acer Aspire A315 54 34U i3 10110U/4Gb/256Gb/15.6\"HD/Win 10","15.090.000₫",R.drawable.aceraspa315));
-        listLaptop.add(new Product("Asus D570DD-E4027T R5-3500U/4GB/256GB/4GB GTX1050/WIN10","10.490.000 ₫",R.drawable.asusd570dd));
-        listLaptop.add(new Product("HP 15s-du0059TU Pentium N5000/4GB/1TB/WIN10","9.890.000₫",R.drawable.hp15s));
-
-        ProductAdapter adapter = new ProductAdapter(this, listLaptop);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        listSP = new ArrayList<>();
+        GetData();
     }
 
-///  ---------   FUNCTION   --------- ///
+    private void GetData() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,JSON_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            Toast.makeText(getApplicationContext(),"OKKK",Toast.LENGTH_LONG).show();
+                            JSONArray ProductArray = new JSONArray(response);
+                            int IDSanPham = 0;
+                            String TenSanPham = "";
+                            String HinhAnhSanPham = "";
+                            Integer GiaSanPham = 0;
+                            String MoTaSanPham = "";
+
+                            for (int i = 0; i < ProductArray.length(); i++) {
+
+                                JSONObject jsonObject = ProductArray.getJSONObject(i);
+                                IDSanPham = jsonObject.getInt("IDSanPham");
+                                TenSanPham = jsonObject.getString("TenSanPham");
+                                HinhAnhSanPham = jsonObject.getString("HinhAnhSanPham");
+                                GiaSanPham = jsonObject.getInt("GiaSanPham");
+                                MoTaSanPham = jsonObject.getString("MoTaSanPham");
+                                listSP.add(new Product(IDSanPham, TenSanPham, GiaSanPham, HinhAnhSanPham, MoTaSanPham));
+
+
+                            }
+                            ProductAdapter adapter = new ProductAdapter(getApplicationContext(),listSP);
+                            recyclerView.setAdapter(adapter);
+                            recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+                        }
+                        catch (Exception e){
+                            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"Faillll",Toast.LENGTH_LONG).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)){
@@ -110,8 +158,6 @@ public class LaptopActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.nav_cart:
-                return true;
             case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);
                 startActivity(NotificationManagerIntent);
@@ -128,4 +174,4 @@ public class LaptopActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
     }
 }
-///  ---------  END FUNCTION  --------- ///
+
