@@ -25,11 +25,23 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.homepage.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -37,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private BottomNavigationView bottomNav;
     private boolean isFrameDisplayed = false;
+    ArrayList<SanPham> mangsanpham;
+    SanPhamAdapter spAdapter;
+    RecyclerView recyclerView;
 
     /// ------------------------------------------------------ ///
     //View flipper
@@ -97,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
                         Intent tabletIntent = new Intent(getApplicationContext(), TabletActivity.class);
                         startActivity(tabletIntent);
                         break;
+                    case R.id.nav_watch:
+                        Intent watchIntent = new Intent(getApplicationContext(), WatchActivity.class);
+                        startActivity(watchIntent);
+                        break;
                     case R.id.nav_notification:
                         Intent notificationIntent = new Intent(getApplicationContext(), NotificationManagerActivity.class);
                         startActivity(notificationIntent);
@@ -129,6 +148,55 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setLogo(R.drawable.logo);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
+        Anhxa();
+        GetDataProc();
+    }
+
+    private void Anhxa() {
+        recyclerView = findViewById(R.id.recycleViewMain);
+        mangsanpham = new ArrayList<>();
+        spAdapter = new SanPhamAdapter(getApplicationContext(),mangsanpham);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        recyclerView.setAdapter(spAdapter);
+    }
+
+    private void GetDataProc() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://5ed91adb4378690016c6ac70.mockapi.io/api/SP", new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if (response != null){
+                    int ID = 0;
+                    String Tensp = "";
+                    Integer Giasp = 0;
+                    String Anhsp = "";
+                    String Motasp = "";
+                    int CateID = 0;
+                    for (int i = 0; i < response.length(); i++){
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            ID = jsonObject.getInt("IDSanPham");
+                            Tensp = jsonObject.getString("TenSanPham");
+                            Giasp = jsonObject.getInt("GiaSanPham");
+                            Anhsp = jsonObject.getString("HinhAnhSanPham");
+                            Motasp = jsonObject.getString("MoTaSanPham");
+                            CateID = jsonObject.getInt("MaLoaiSanPham");
+                            mangsanpham.add(new SanPham(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
+                            spAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
     }
 /// ------------------------------------------------------ ///
 

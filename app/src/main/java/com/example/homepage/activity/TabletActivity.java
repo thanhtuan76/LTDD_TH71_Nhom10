@@ -17,8 +17,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.homepage.R;
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +37,9 @@ public class TabletActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
-    private List<Product> listTablet;
+    //private List<Product> listTablet;
+    private ArrayList<SanPham> listTab;
+    private SanPhamAdapter spAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +64,10 @@ public class TabletActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_tablet:
                         break;
+                    case R.id.nav_watch:
+                        Intent watchIntent = new Intent(getApplicationContext(), WatchActivity.class);
+                        startActivity(watchIntent);
+                        break;
                     case R.id.nav_notification:
                         Intent notificationIntent = new Intent(getApplicationContext(), NotificationManagerActivity.class);
                         startActivity(notificationIntent);
@@ -62,6 +77,7 @@ public class TabletActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -76,19 +92,56 @@ public class TabletActivity extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
 
-        listTablet = new ArrayList<>();
-        listTablet.add(new Product("IPad Pro 12.9 2020  WI-FI 4G 1TB ", "51.990.000 ₫", R.drawable.ipadp129));
-        listTablet.add(new Product("IPad Pro 11 WI-FI 512GB ", "31.990.000 ₫", R.drawable.ipadp11));
-        listTablet.add(new Product("Samsung Galaxy Tab S6  (2019) ", "18.490.000 ₫", R.drawable.ssgalaxytabs6));
-        listTablet.add(new Product("iPad Air 3 10.5 Wi-Fi 64GB  ", "13.990.000 ₫", R.drawable.ipadair4g3c));
-        listTablet.add(new Product("iPad 2019 10.2 Wi-Fi  128GB ", "11.990.000 ₫", R.drawable.ipadp10129));
-        listTablet.add(new Product("Huawei MediaPad M5 Lite  64GB ", "7.990.000 ₫", R.drawable.hwm5l));
-        listTablet.add(new Product("Samsung Galaxy Tab A  Plus 8.0 (2019)  ", "6.990.000 ₫", R.drawable.sstabaplus8));
-        listTablet.add(new Product("Huawei MediaPad T5 10 ", "4.990.000 ₫", R.drawable.hwt5));
 
-        ProductAdapter adapter = new ProductAdapter(this, listTablet);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        Anhxa();
+        GetDataTab();
+    }
+
+    private void GetDataTab() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://5ed91adb4378690016c6ac70.mockapi.io/api/Tablets", new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if (response != null){
+                    int ID = 0;
+                    String Tensp = "";
+                    Integer Giasp = 0;
+                    String Anhsp = "";
+                    String Motasp = "";
+                    int CateID = 0;
+                    for (int i = 0; i < response.length(); i++){
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            ID = jsonObject.getInt("IDSanPham");
+                            Tensp = jsonObject.getString("TenSanPham");
+                            Giasp = jsonObject.getInt("GiaSanPham");
+                            Anhsp = jsonObject.getString("HinhAnhSanPham");
+                            Motasp = jsonObject.getString("MoTaSanPham");
+                            CateID = jsonObject.getInt("MaLoaiSanPham");
+                            listTab.add(new SanPham(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
+                            spAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    private void Anhxa() {
+
+        listTab = new ArrayList<>();
+        spAdapter = new SanPhamAdapter(getApplicationContext(),listTab);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        recyclerView.setAdapter(spAdapter);
     }
 
     @Override

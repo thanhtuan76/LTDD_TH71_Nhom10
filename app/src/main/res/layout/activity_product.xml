@@ -90,6 +90,10 @@
                     android:text="Trả góp 0% qua thẻ"
                     android:textColor="#FFFFFF"/>
             </LinearLayout>
+            <TextView
+                android:id="@+id/mota"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
