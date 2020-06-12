@@ -19,7 +19,7 @@ import androidx.annotation.Nullable;
 import java.util.HashMap;
 
 public class UserProvider extends ContentProvider {
-    static final String PROVIDER_NAME = "com.example.homepage.UserProvider";
+    static final String PROVIDER_NAME = "com.example.homepage.activity.UserProvider";
     static final String URL = "content://" + PROVIDER_NAME + "/users";
     static final Uri CONTENT_URI = Uri.parse(URL);
 

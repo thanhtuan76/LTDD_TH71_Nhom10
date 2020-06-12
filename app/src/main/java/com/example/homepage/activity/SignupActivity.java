@@ -2,7 +2,9 @@ package com.example.homepage.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,10 +34,10 @@ public class SignupActivity extends AppCompatActivity {
                 boolean isConfirmOK = checkConfirmPassword();
                 boolean allOK = isHoOK && isTenOK && isUsernameOK && isEmailOK && isPasswordOK && isConfirmOK;
 
-                if(allOK){
-                    Toast.makeText(getApplicationContext(),"Đăng ký thành công !",Toast.LENGTH_SHORT).show();
+                if (allOK) {
+                    AddUser();
                     Intent intent= new Intent(getApplicationContext(), SigninActivity.class);
-                    intent.putExtra("username", txtUsername.getText());
+                    intent.putExtra("username", txtUsername.getText().toString());
                     startActivity(intent);
                 }
             }
@@ -52,30 +54,30 @@ public class SignupActivity extends AppCompatActivity {
         btnDone = findViewById(R.id.btnDone);
     }
 
-    private boolean checkHo() {
+    public boolean checkHo() {
         String ho = txtLastname.getText().toString();
         if (ho.length() == 0) {
-            txtLastname.setError("Họ không được bỏ trống !");
+            txtLastname.setError("Họ không được bỏ trống");
             return false;
         } else {
             return true;
         }
     }
 
-    private boolean checkTen() {
+    public boolean checkTen() {
         String ten = txtFirstname.getText().toString();
         if (ten.length() == 0) {
-            txtFirstname.setError("Tên không được bỏ trống !");
+            txtFirstname.setError("Tên không được bỏ trống");
             return false;
         } else {
             return true;
         }
     }
 
-    private boolean checkUsername() {
+    public boolean checkUsername() {
         String username = txtUsername.getText().toString();
         if (username.length() == 0) {
-            txtUsername.setError("Tên đăng nhập không được bỏ trống !");
+            txtUsername.setError("Tên đăng nhập không được bỏ trống");
             return false;
         } else {
             if (username.length() < 8) {
@@ -101,10 +103,10 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkEmail() {
+    public boolean checkEmail() {
         String email = txtEmail.getText().toString();
         if (email.length() == 0) {
-            txtEmail.setError("Email không được bỏ trống !");
+            txtEmail.setError("Email không được bỏ trống");
             return false;
         } else {
             if (!email.contains("@")) {
@@ -115,10 +117,10 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkPassword() {
+    public boolean checkPassword() {
         String matkhau= txtPass.getText().toString();
         if (matkhau.length() == 0) {
-            txtPass.setError("Mật khẩu không được bỏ trống !");
+            txtPass.setError("Mật khẩu không được bỏ trống");
             return false;
         } else {
             if (matkhau.length() < 8) {
@@ -152,11 +154,11 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkConfirmPassword() {
+    public boolean checkConfirmPassword() {
         String matkhau = txtPass.getText().toString();
         String xacnhanmatkhau = txtConfirmPass.getText().toString();
         if (matkhau.length() == 0) {
-            txtConfirmPass.setError("Mật khẩu xác nhận không được bỏ trống !");
+            txtConfirmPass.setError("Mật khẩu xác nhận không được bỏ trống");
             return false;
         } else {
             if (xacnhanmatkhau.compareTo(matkhau) == 0)
@@ -166,5 +168,14 @@ public class SignupActivity extends AppCompatActivity {
                 return false;
             }
         }
+    }
+
+    public void AddUser() {
+        ContentValues values = new ContentValues();
+        values.put(UserProvider.USERNAME, (txtUsername.getText().toString()));
+        values.put(UserProvider.PASSWORD, (txtPass.getText().toString()));
+
+        Uri uri = getContentResolver().insert(UserProvider.CONTENT_URI, values);
+        Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_SHORT).show();
     }
 }
