@@ -54,6 +54,9 @@
             android:name=".activity.NotificationManagerActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.MainActivity" />
+        <provider
+            android:authorities="com.example.homepage.activity.UserProvider"
+            android:name=".activity.UserProvider"/>
     </application>
 
 </manifest>
