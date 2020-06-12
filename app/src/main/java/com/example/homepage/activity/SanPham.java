@@ -1,6 +1,8 @@
 package com.example.homepage.activity;
 
-public class SanPham {
+import java.io.Serializable;
+
+public class SanPham implements Serializable {
     private int prodID;
     private String prodName;
     private int prodPrice;

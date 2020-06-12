@@ -19,14 +19,16 @@ import android.widget.TextView;
 
 import com.example.homepage.R;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ProductDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private TextView tvProdName, tvProdPrice;
+    private TextView tvProdName, tvProdPrice, mota;
     private ImageView imgProd;
 
     @Override
@@ -76,6 +78,33 @@ public class ProductDetailActivity extends AppCompatActivity {
         actionBar.setLogo(R.drawable.logo);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
+        
+        Anhxa();
+        GetInfo();
+    }
+
+    private void Anhxa() {
+    }
+    public void GetInfo (){
+        int id = 0;
+        String TenCT = "";
+        int Gia = 0;
+        String HinhCT = "";
+        String MotaCT = "";
+        int idloaisp = 0;
+        SanPham sanPham = (SanPham) getIntent().getSerializableExtra("thongtinsanpham");
+        id = sanPham.getProdID();
+        TenCT =  sanPham.getProdName();
+        Gia = sanPham.getProdPrice();
+        HinhCT = sanPham.getProdImg();
+        MotaCT = sanPham.getProdDes();
+        idloaisp = sanPham.getProdCateID();
+        tvProdName.setText(TenCT);
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        tvProdPrice.setText("Giá: " + decimalFormat.format(Gia) + " Đ");
+        mota.setText(MotaCT);
+        Picasso.with(getApplicationContext()).load(HinhCT).into(imgProd);
+
     }
 
     @Override
@@ -115,15 +144,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         drawer = findViewById(R.id.drawerLayout);
         tvProdName = findViewById((R.id.tvProdName));
         tvProdPrice = findViewById((R.id.tvProdPrice));
+        mota = findViewById(R.id.mota);
         imgProd = findViewById(R.id.imgProd);
-
-        // Set product information
-        String prodName = getIntent().getStringExtra("prod_name");
-        String prodPrice = getIntent().getStringExtra("prod_price");
-        int image = getIntent().getIntExtra("prod_img", -1);
-
-        tvProdName.setText(prodName);
-        tvProdPrice.setText(prodPrice);
-        imgProd.setImageResource(image);
     }
 }

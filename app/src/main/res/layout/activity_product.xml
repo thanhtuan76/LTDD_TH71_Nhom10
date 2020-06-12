@@ -14,7 +14,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -34,6 +34,11 @@
                     android:hint="Search"
                     android:paddingLeft="40dp"/>
             </androidx.appcompat.widget.Toolbar>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </ScrollView>
             <TextView
                 android:id="@+id/tvProdName"
                 android:layout_width="match_parent"
@@ -42,11 +47,11 @@
                 android:text="Name"
                 android:textStyle="bold"
                 android:textColor="#000000"
-                android:textSize="22dp" />
+                android:textSize="20dp" />
             <ImageView
                 android:id="@+id/imgProd"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp" />
             <TextView
@@ -55,8 +60,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Price"
-                android:textColor="#8E8A8A"
-                android:textSize="20dp" />
+                android:textStyle="bold"
+                android:textColor="#990000"
+                android:textSize="17sp" />
             <Button
                 android:id="@+id/btnBuy"
                 android:layout_width="match_parent"
@@ -66,7 +72,7 @@
                 android:text="Mua ngay"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
-                android:textSize="18dp" />
+                android:textSize="15sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,7 +80,7 @@
                 android:orientation="horizontal">
                 <Button
                     android:id="@+id/btnInstallment"
-                    android:layout_width="200dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:background="#3F51B5"
@@ -90,15 +96,23 @@
                     android:text="Trả góp 0% qua thẻ"
                     android:textColor="#FFFFFF"/>
             </LinearLayout>
-            <TextView
-                android:id="@+id/mota"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/mota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="mo ta"
+                    android:textColor="#000000"
+                    android:textSize="20sp"/>
+            </ScrollView>
+
         </LinearLayout>
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="start"
             app:headerLayout="@layout/nav_header"
             app:menu="@menu/drawer_menu"

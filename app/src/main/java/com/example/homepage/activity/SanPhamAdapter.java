@@ -1,6 +1,8 @@
 package com.example.homepage.activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,15 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ItemHold
             name = view.findViewById(R.id.texttensp);
             price = view.findViewById(R.id.textgiasp);
             img = view.findViewById(R.id.imgviewsp);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context,ProductDetailActivity.class);
+                    intent.putExtra("thongtinsanpham", arrProduct.get(getAdapterPosition()));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
