@@ -186,6 +186,10 @@ public class PhoneActivity extends AppCompatActivity {
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);
                 startActivity(NotificationManagerIntent);
                 return true;
+            case R.id.action_home:
+                Intent ReturnHome = new Intent(this, MainActivity.class);
+                startActivity(ReturnHome);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
