@@ -1,38 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:clickable="true"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview_product"
-    android:layout_width="200dp"
-    android:layout_height="250dp"
-    android:layout_margin="3dp">
+    app:cardCornerRadius="4dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_width="186dp"
+    android:layout_height="200dp">
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <ImageView
-            android:id="@+id/imgProdItem"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
+            android:id="@+id/imgviewsp"
+            android:layout_margin="7dp"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/texttensp"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:background="#2d2d2d"/>
-        <TextView
-            android:id="@+id/tvProdItemName"
-            android:text="Name"
-            android:textSize="14dp"
+            android:textAlignment="center"
+            android:text="Tên sản phẩm"
+            android:textColor="#101010"
             android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:gravity="center_horizontal"/>
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
         <TextView
-            android:id="@+id/tvProdItemPrice"
-            android:text="Price"
-            android:textSize="12dp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_width="match_parent"
+            android:id="@+id/textgiasp"
+            android:text="Giá"
+            android:textSize="15sp"
+            android:textColor="#f20"
+            android:textAlignment="center"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:maxLines="1"
+            android:ellipsize="end"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

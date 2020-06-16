@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
-import java.util.List;
 
 public class ProductDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -92,13 +90,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         String HinhCT = "";
         String MotaCT = "";
         int idloaisp = 0;
-        SanPham sanPham = (SanPham) getIntent().getSerializableExtra("thongtinsanpham");
-        id = sanPham.getProdID();
-        TenCT =  sanPham.getProdName();
-        Gia = sanPham.getProdPrice();
-        HinhCT = sanPham.getProdImg();
-        MotaCT = sanPham.getProdDes();
-        idloaisp = sanPham.getProdCateID();
+        Product product = (Product) getIntent().getSerializableExtra("thongtinsanpham");
+        id = product.getProdID();
+        TenCT =  product.getProdName();
+        Gia = product.getProdPrice();
+        HinhCT = product.getProdImg();
+        MotaCT = product.getProdDes();
+        idloaisp = product.getProdCateID();
         tvProdName.setText(TenCT);
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         tvProdPrice.setText("Giá: " + decimalFormat.format(Gia) + " Đ");

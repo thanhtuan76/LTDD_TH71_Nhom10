@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.TabletActivity"
+    tools:context=".activity.WatchActivity"
     tools:openDrawer="start">
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -39,7 +39,7 @@
                 android:layout_height="40dp"
                 android:padding="10dp"
                 android:background="#E4E4E4"
-                android:text="MÁY TÍNH BẢNG"
+                android:text="ĐỒNG HỒ"
                 android:textColor="#383838"
                 android:textStyle="bold" />
             <androidx.recyclerview.widget.RecyclerView

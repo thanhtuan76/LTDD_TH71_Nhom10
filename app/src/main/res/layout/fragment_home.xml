@@ -10,13 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <ViewFlipper
             android:id="@+id/v_flipper"
             android:layout_width="match_parent"
             android:layout_height="155dp" />
-
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -25,11 +22,19 @@
             android:text="ĐIỆN THOẠI KHUYẾN MÃI HOT"
             android:textColor="#383838"
             android:textStyle="bold" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleViewHome"
-            android:background="#E4E4E4"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleViewHome"
+                android:background="#E4E4E4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <ProgressBar
+                android:id="@+id/progressBarHome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="180dp"/>
+        </RelativeLayout>
     </LinearLayout>
 </FrameLayout>

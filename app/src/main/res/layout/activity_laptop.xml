@@ -33,10 +33,19 @@
                     android:hint="Search"
                     android:paddingLeft="40dp" />
             </androidx.appcompat.widget.Toolbar>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:background="#E4E4E4"
+                android:text="MÁY TÍNH XÁCH TAY"
+                android:textColor="#383838"
+                android:textStyle="bold" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="#E4E4E4">
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
     </androidx.drawerlayout.widget.DrawerLayout>

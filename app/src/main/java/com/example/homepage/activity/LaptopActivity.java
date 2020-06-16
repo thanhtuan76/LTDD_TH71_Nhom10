@@ -8,7 +8,6 @@ package com.example.homepage.activity;
         import androidx.core.view.GravityCompat;
         import androidx.drawerlayout.widget.DrawerLayout;
         import androidx.recyclerview.widget.GridLayoutManager;
-        import androidx.recyclerview.widget.LinearLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
 
         import android.content.Intent;
@@ -30,15 +29,14 @@ package com.example.homepage.activity;
         import org.json.JSONObject;
 
         import java.util.ArrayList;
-        import java.util.List;
 
 public class LaptopActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
-    private ArrayList<SanPham> listLaptop;
-    SanPhamAdapter spAdapter;
+    private ArrayList<Product> listLaptop;
+    ProductAdapter spAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +125,7 @@ public class LaptopActivity extends AppCompatActivity {
                                 Anhsp = jsonObject.getString("HinhAnhSanPham");
                                 Motasp = jsonObject.getString("MoTaSanPham");
                                 CateID = jsonObject.getInt("MaLoaiSanPham");
-                                listLaptop.add(new SanPham(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
+                                listLaptop.add(new Product(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
                                 spAdapter.notifyDataSetChanged();
                             }
 
@@ -149,7 +147,7 @@ public class LaptopActivity extends AppCompatActivity {
     private void Anhxa() {
 
         listLaptop = new ArrayList<>();
-        spAdapter = new SanPhamAdapter(getApplicationContext(),listLaptop);
+        spAdapter = new ProductAdapter(getApplicationContext(),listLaptop);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         recyclerView.setAdapter(spAdapter);

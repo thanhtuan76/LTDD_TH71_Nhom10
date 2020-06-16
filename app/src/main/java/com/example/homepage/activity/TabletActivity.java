@@ -8,7 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -30,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TabletActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -38,8 +36,8 @@ public class TabletActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
     //private List<Product> listTablet;
-    private ArrayList<SanPham> listTab;
-    private SanPhamAdapter spAdapter;
+    private ArrayList<Product> listTab;
+    private ProductAdapter spAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +116,7 @@ public class TabletActivity extends AppCompatActivity {
                             Anhsp = jsonObject.getString("HinhAnhSanPham");
                             Motasp = jsonObject.getString("MoTaSanPham");
                             CateID = jsonObject.getInt("MaLoaiSanPham");
-                            listTab.add(new SanPham(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
+                            listTab.add(new Product(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
                             spAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -138,7 +136,7 @@ public class TabletActivity extends AppCompatActivity {
     private void Anhxa() {
 
         listTab = new ArrayList<>();
-        spAdapter = new SanPhamAdapter(getApplicationContext(),listTab);
+        spAdapter = new ProductAdapter(getApplicationContext(),listTab);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         recyclerView.setAdapter(spAdapter);

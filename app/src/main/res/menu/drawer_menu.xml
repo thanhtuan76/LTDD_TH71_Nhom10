@@ -17,10 +17,6 @@
             android:icon="@drawable/i_laptop"
             android:title="Laptop" />
         <item
-            android:id="@+id/nav_others"
-            android:icon="@drawable/i_hphone"
-            android:title="Phụ kiện" />
-        <item
             android:id="@+id/nav_watch"
             android:icon="@drawable/i_watch"
             android:title="Đồng hồ" />

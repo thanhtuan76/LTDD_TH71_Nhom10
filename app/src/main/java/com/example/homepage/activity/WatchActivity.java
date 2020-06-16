@@ -35,14 +35,14 @@ public class WatchActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
-    private ArrayList<SanPham> listWa;
-    private SanPhamAdapter spAdapter;
+    private ArrayList<Product> listWa;
+    private ProductAdapter spAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tablet);
+        setContentView(R.layout.activity_watch);
 
         Initial();
         setSupportActionBar(toolbar);
@@ -131,7 +131,7 @@ public class WatchActivity extends AppCompatActivity {
                                 Anhsp = jsonObject.getString("HinhAnhSanPham");
                                 Motasp = jsonObject.getString("MoTaSanPham");
                                 CateID = jsonObject.getInt("MaLoaiSanPham");
-                                listWa.add(new SanPham(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
+                                listWa.add(new Product(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
                                 spAdapter.notifyDataSetChanged();
                             }
                         } catch (JSONException e) {
@@ -151,7 +151,7 @@ public class WatchActivity extends AppCompatActivity {
 
     private void Anhxa() {
         listWa = new ArrayList<>();
-        spAdapter = new SanPhamAdapter(getApplicationContext(),listWa);
+        spAdapter = new ProductAdapter(getApplicationContext(),listWa);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         recyclerView.setAdapter(spAdapter);

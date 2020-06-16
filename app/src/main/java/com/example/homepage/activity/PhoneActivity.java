@@ -8,7 +8,6 @@ package com.example.homepage.activity;
         import androidx.core.view.GravityCompat;
         import androidx.drawerlayout.widget.DrawerLayout;
         import androidx.recyclerview.widget.GridLayoutManager;
-        import androidx.recyclerview.widget.LinearLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
 
         import android.content.Intent;
@@ -16,9 +15,7 @@ package com.example.homepage.activity;
         import android.view.Menu;
         import android.view.MenuInflater;
         import android.view.MenuItem;
-        import android.view.View;
         import android.widget.LinearLayout;
-        import android.widget.Toast;
 
         import com.android.volley.RequestQueue;
         import com.android.volley.Response;
@@ -33,15 +30,14 @@ package com.example.homepage.activity;
         import org.json.JSONObject;
 
         import java.util.ArrayList;
-        import java.util.List;
 
 public class PhoneActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
-    private ArrayList<SanPham> listPhone;
-    private SanPhamAdapter spAdapter;
+    private ArrayList<Product> listPhone;
+    private ProductAdapter spAdapter;
     private LinearLayout lin;
 
     @Override
@@ -135,7 +131,7 @@ public class PhoneActivity extends AppCompatActivity {
                             Anhsp = jsonObject.getString("HinhAnhSanPham");
                             Motasp = jsonObject.getString("MoTaSanPham");
                             CateID = jsonObject.getInt("MaLoaiSanPham");
-                            listPhone.add(new SanPham(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
+                            listPhone.add(new Product(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
                             spAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -154,7 +150,7 @@ public class PhoneActivity extends AppCompatActivity {
 
     private void Anhxa() {
         listPhone = new ArrayList<>();
-        spAdapter = new SanPhamAdapter(getApplicationContext(),listPhone);
+        spAdapter = new ProductAdapter(getApplicationContext(),listPhone);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         recyclerView.setAdapter(spAdapter);
