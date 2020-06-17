@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -13,9 +14,14 @@ import android.widget.Toast;
 
 import com.example.homepage.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SignupActivity extends AppCompatActivity {
     private EditText txtUsername, txtLastname, txtFirstname, txtEmail, txtPass, txtConfirmPass;
     private Button btnDone;
+    private List<String> listUsername = new ArrayList<>();
+    private List<String> listPassword = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,7 @@ public class SignupActivity extends AppCompatActivity {
 
     public boolean checkUsername() {
         String username = txtUsername.getText().toString();
+        RetrieveUser();
         if (username.length() == 0) {
             txtUsername.setError("Tên đăng nhập không được bỏ trống");
             return false;
@@ -95,8 +102,14 @@ public class SignupActivity extends AppCompatActivity {
                         if (username.length() > 128) {
                             txtUsername.setError("Tên đăng nhập không được quá 128 kí tự");
                             return false;
-                        } else
-                            return true;
+                        } else {
+                            if (listUsername.indexOf(username) != -1) {
+                                txtUsername.setError("Tên đăng nhập đã tồn tại");
+                                return false;
+                            }
+                            else
+                                return true;
+                        }
                     }
                 }
             }
@@ -177,5 +190,20 @@ public class SignupActivity extends AppCompatActivity {
 
         Uri uri = getContentResolver().insert(UserProvider.CONTENT_URI, values);
         Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void RetrieveUser() {
+        String URL = "content://com.example.homepage.activity.UserProvider";
+        Uri users = Uri.parse(URL);
+        Cursor c =  managedQuery(users, null, null, null, "username");
+
+        if (c.moveToFirst()) {
+            do {
+                String strName = c.getString(c.getColumnIndex(UserProvider.USERNAME));
+                String strPass = c.getString(c.getColumnIndex(UserProvider.PASSWORD));
+                listUsername.add(strName);
+                listPassword.add(strPass);
+            } while (c.moveToNext());
+        }
     }
 }

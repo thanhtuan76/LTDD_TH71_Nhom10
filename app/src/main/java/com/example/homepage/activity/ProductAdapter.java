@@ -64,7 +64,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemHold
         Product sp = arrProduct.get(position);
         holder.name.setText(sp.getProdName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        holder.price.setText("Giá : " + decimalFormat.format(sp.getProdPrice()) + " Đ");
+        holder.price.setText(decimalFormat.format(sp.getProdPrice()) + " Đ");
         Picasso.with(context).load(sp.getProdImg()).into(holder.img);
     }
 

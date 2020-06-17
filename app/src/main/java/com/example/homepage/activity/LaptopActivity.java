@@ -41,7 +41,7 @@ public class LaptopActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tablet);
+        setContentView(R.layout.activity_laptop);
 
         Initial();
         setSupportActionBar(toolbar);

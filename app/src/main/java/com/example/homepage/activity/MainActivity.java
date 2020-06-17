@@ -10,9 +10,12 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -41,6 +44,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,17 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private BottomNavigationView bottomNav;
     private String strUsername;
+    private TextView tvSearch;
 
-    /// ------------------------------------------------------ ///
-    //View flipper
-    int[] imgs = {
-            R.drawable.s1,
-            R.drawable.s2,
-            R.drawable.s3,
-            R.drawable.s4,
-            R.drawable.s5,
-            R.drawable.s6
-    };
 /// ------------------------------------------------------ ///
 
     @Override
@@ -128,15 +123,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        tvSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        // Create notification channel
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        // Create notification_item channel
         createNotificationChannel();
 
-        // Add notification
+        // Add notification_item
         addNotification(1, R.string.noti1_title, R.string.noti1_content, R.drawable.s2);
         addNotification(3, R.string.noti3_title, R.string.noti3_content, R.drawable.s3);
         addNotification(2, R.string.noti2_title, R.string.noti2_content, R.drawable.s4);
-
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -161,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawerLayout);
         bottomNav = findViewById(R.id.bottom_nav);
+        tvSearch = findViewById(R.id.tvSearch);
         strUsername = getIntent().getStringExtra("user_name");
         // Set Home Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -202,11 +213,8 @@ public class MainActivity extends AppCompatActivity {
         String content = getString(notiContent);
         Bitmap picture = BitmapFactory.decodeResource(getResources(), img);
 
-        Intent notificationIntent = new Intent(this, NotificationDetailActivity.class);
+        Intent notificationIntent = new Intent(this, NotificationManagerActivity.class);
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        notificationIntent.putExtra("img", img);
-        notificationIntent.putExtra("title", title);
-        notificationIntent.putExtra("content", content);
         PendingIntent pendIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "NotificationChannel")

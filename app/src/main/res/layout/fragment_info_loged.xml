@@ -39,8 +39,47 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="180dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#CFCFCF" />
+            <Button
+                android:id="@+id/btnFav"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:text="Danh mục yêu thích"
+                android:textColor="#606060" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#CFCFCF" />
+            <Button
+                android:id="@+id/btnHistory"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:text="Lịch sử mua hàng"
+                android:textColor="#606060" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#CFCFCF" />
+            <Button
+                android:id="@+id/btnSignOut"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:text="Đăng xuất"
+                android:textColor="#CD2525" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#CFCFCF" />
         </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

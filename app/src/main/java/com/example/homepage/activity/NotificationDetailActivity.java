@@ -121,7 +121,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
         tvContent = findViewById(R.id.tvContent);
         imgNoti = findViewById(R.id.imgNoti);
 
-        // Set notification information
+        // Set notification_item information
         int img = getIntent().getIntExtra("img", -1);
         String strTitle = getIntent().getStringExtra("title");
         String strContent = getIntent().getStringExtra("content");

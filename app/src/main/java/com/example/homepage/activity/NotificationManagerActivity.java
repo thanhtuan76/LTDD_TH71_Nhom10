@@ -88,7 +88,7 @@ public class NotificationManagerActivity extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
 
-        // List notification
+        // List notification_item
         NotificationAdapter adapter = new NotificationAdapter(this, title, content, imgId);
         listNotification.setAdapter(adapter);
 

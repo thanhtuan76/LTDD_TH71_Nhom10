@@ -17,7 +17,7 @@ import com.example.homepage.R;
  * A simple {@link Fragment} subclass.
  */
 public class InfoFragment extends Fragment {
-    private Button btnSignIn;
+    private Button btnSignIn, btnSignOut;
     private TextView tvUsername;
 
     @Override
@@ -30,6 +30,16 @@ public class InfoFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_info_loged, container, false);
             tvUsername = view.findViewById(R.id.tvUsername);
             tvUsername.setText(strUsername);
+
+            btnSignOut = view.findViewById(R.id.btnSignOut);
+            btnSignOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+
             return view;
         }
         else {

@@ -15,7 +15,7 @@ public class NotificationAdapter extends ArrayAdapter<Integer> {
     private final Integer[] imgid;
 
     public NotificationAdapter(Activity context, Integer[] title, Integer[] content, Integer[] imgid) {
-        super(context, R.layout.notification, title);
+        super(context, R.layout.notification_item, title);
         this.context = context;
         this.title = title;
         this.content = content;
@@ -24,7 +24,7 @@ public class NotificationAdapter extends ArrayAdapter<Integer> {
 
     public View getView (int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View row = inflater.inflate(R.layout.notification, null, true);
+        View row = inflater.inflate(R.layout.notification_item, null, true);
         TextView tvTitle = row.findViewById(R.id.tvNotiItemTitle);
         TextView tvContent = row.findViewById(R.id.tvNotiItemContent);
         ImageView imgNoti = row.findViewById(R.id.imgNotiItem);
