@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private BottomNavigationView bottomNav;
-    private boolean isFrameDisplayed = false;
+    private String strUsername;
 
     /// ------------------------------------------------------ ///
     //View flipper
@@ -85,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_info:
                         InfoFragment infoFragment = new InfoFragment();
+                        if (strUsername != null) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("user_name", strUsername);
+                            infoFragment.setArguments(bundle);
+                        }
                         fragmentTransaction.replace(R.id.fragment_container, infoFragment).addToBackStack(null).commit();
                         break;
                 }
@@ -156,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawerLayout);
         bottomNav = findViewById(R.id.bottom_nav);
+        strUsername = getIntent().getStringExtra("user_name");
+        // Set Home Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         HomeFragment homeFragment = new HomeFragment();
