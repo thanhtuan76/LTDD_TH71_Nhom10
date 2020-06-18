@@ -6,11 +6,11 @@
     android:gravity="bottom"
     android:background="@drawable/redbg"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:padding="16dp">
+    android:padding="18dp">
     <ImageView
+        android:id="@+id/imgLogo"
         android:layout_width="68dp"
         android:layout_height="52dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="2dp"
         android:background="@drawable/logo"/>
 </LinearLayout>

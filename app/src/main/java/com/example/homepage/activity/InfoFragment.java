@@ -1,5 +1,6 @@
 package com.example.homepage.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -36,6 +37,7 @@ public class InfoFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), MainActivity.class);
+                    getActivity().finish();
                     startActivity(intent);
                 }
             });

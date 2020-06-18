@@ -185,7 +185,7 @@ public class SignupActivity extends AppCompatActivity {
 
     public void AddUser() {
         ContentValues values = new ContentValues();
-        values.put(UserProvider.USERNAME, (txtUsername.getText().toString()));
+        values.put(UserProvider.USERNAME, (txtUsername.getText().toString().trim()));
         values.put(UserProvider.PASSWORD, (txtPass.getText().toString()));
 
         Uri uri = getContentResolver().insert(UserProvider.CONTENT_URI, values);

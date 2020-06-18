@@ -61,6 +61,8 @@ public class SearchActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()) {
                     case R.id.nav_phone:
+                        Intent phoneIntent = new Intent(getApplicationContext(), PhoneActivity.class);
+                        startActivity(phoneIntent);
                         break;
                     case R.id.nav_latop:
                         Intent laptopIntent = new Intent(getApplicationContext(), LaptopActivity.class);

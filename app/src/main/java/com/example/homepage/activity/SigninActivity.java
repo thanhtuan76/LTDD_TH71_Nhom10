@@ -45,7 +45,7 @@ public class SigninActivity extends AppCompatActivity {
 
                 if (allOK) {
                     RetrieveUser();
-                    int idxUsername = listUsername.indexOf(txtUsername.getText().toString());
+                    int idxUsername = listUsername.indexOf(txtUsername.getText().toString().trim());
                     if (idxUsername != -1) {
                         String strInputPass = txtPassword.getText().toString();
                         String strListPass = listPassword.get(idxUsername);
