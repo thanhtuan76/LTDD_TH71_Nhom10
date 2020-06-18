@@ -1,14 +1,5 @@
 package com.example.homepage.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,6 +9,18 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,20 +36,21 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class WatchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
-    private ArrayList<Product> listWatch;
+    private ArrayList<Product> listProd;
     private ProductAdapter spAdapter;
+    private EditText txtSearch;
+    private TextView tvSoLuong;
     private ProgressBar progressBar;
-    private TextView tvSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_watch);
+        setContentView(R.layout.activity_search);
 
         Initial();
         setSupportActionBar(toolbar);
@@ -57,8 +61,6 @@ public class WatchActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()) {
                     case R.id.nav_phone:
-                        Intent phoneIntent = new Intent(getApplicationContext(), PhoneActivity.class);
-                        startActivity(phoneIntent);
                         break;
                     case R.id.nav_latop:
                         Intent laptopIntent = new Intent(getApplicationContext(), LaptopActivity.class);
@@ -69,6 +71,8 @@ public class WatchActivity extends AppCompatActivity {
                         startActivity(tabletIntent);
                         break;
                     case R.id.nav_watch:
+                        Intent watchIntent = new Intent(getApplicationContext(), WatchActivity.class);
+                        startActivity(watchIntent);
                         break;
                     case R.id.nav_notification:
                         Intent notificationIntent = new Intent(getApplicationContext(), NotificationManagerActivity.class);
@@ -77,14 +81,6 @@ public class WatchActivity extends AppCompatActivity {
                 }
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
-            }
-        });
-
-        tvSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
-                startActivity(searchIntent);
             }
         });
 
@@ -102,10 +98,28 @@ public class WatchActivity extends AppCompatActivity {
         actionBar.setTitle("");
 
         Anhxa();
-        GetDataPhone();
+        GetData(txtSearch.getText().toString());
+
+        txtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Anhxa();
+                GetData(txtSearch.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
-    private void GetDataPhone() {
+    private void GetData(final String str) {
         progressBar.setVisibility(View.VISIBLE);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://5ed91adb4378690016c6ac70.mockapi.io/api/SP", new Response.Listener<JSONArray>() {
@@ -119,23 +133,25 @@ public class WatchActivity extends AppCompatActivity {
                     String Anhsp = "";
                     String Motasp = "";
                     int CateID = 0;
+                    listProd.clear();
                     for (int i = 0; i < response.length(); i++){
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
-                            if (jsonObject.getInt("MaLoaiSanPham") == 3){
-                                ID = jsonObject.getInt("IDSanPham");
-                                Tensp = jsonObject.getString("TenSanPham");
-                                Giasp = jsonObject.getInt("GiaSanPham");
-                                Anhsp = jsonObject.getString("HinhAnhSanPham");
-                                Motasp = jsonObject.getString("MoTaSanPham");
-                                CateID = jsonObject.getInt("MaLoaiSanPham");
-                                listWatch.add(new Product(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
+                            ID = jsonObject.getInt("IDSanPham");
+                            Tensp = jsonObject.getString("TenSanPham");
+                            Giasp = jsonObject.getInt("GiaSanPham");
+                            Anhsp = jsonObject.getString("HinhAnhSanPham");
+                            Motasp = jsonObject.getString("MoTaSanPham");
+                            CateID = jsonObject.getInt("MaLoaiSanPham");
+                            if (Tensp.toLowerCase().contains(str.toLowerCase())) {
+                                listProd.add(new Product(ID, Tensp, Giasp, Anhsp, Motasp, CateID));
                                 spAdapter.notifyDataSetChanged();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+                    tvSoLuong.setText(String.format("KẾT QUẢ (%d)", listProd.size()));
                 }
             }
         }, new Response.ErrorListener() {
@@ -148,8 +164,8 @@ public class WatchActivity extends AppCompatActivity {
     }
 
     private void Anhxa() {
-        listWatch = new ArrayList<>();
-        spAdapter = new ProductAdapter(getApplicationContext(),listWatch);
+        listProd = new ArrayList<>();
+        spAdapter = new ProductAdapter(getApplicationContext(), listProd);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         recyclerView.setAdapter(spAdapter);
@@ -191,8 +207,8 @@ public class WatchActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawerLayout);
         recyclerView = findViewById(R.id.recyclerview);
+        txtSearch = findViewById(R.id.txtSearch);
+        tvSoLuong = findViewById(R.id.tvSoLuong);
         progressBar = findViewById(R.id.progressBar);
-        tvSearch = findViewById(R.id.tvSearch);
     }
 }
-

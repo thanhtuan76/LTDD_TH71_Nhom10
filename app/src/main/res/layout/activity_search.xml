@@ -4,47 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.WatchActivity"
+    tools:context=".activity.SearchActivity"
     tools:openDrawer="start">
-
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:background="#D2192B">
-            </androidx.appcompat.widget.Toolbar>
+                android:background="#D2192B"/>
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar1"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:background="#D2192B">
-                <TextView
-                    android:id="@+id/tvSearch"
+                <EditText
+                    android:id="@+id/txtSearch"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginRight="16dp"
                     android:gravity="center_vertical"
                     android:background="@drawable/search"
-                    android:text="Search"
+                    android:hint="Search"
                     android:textSize="16dp"
                     android:paddingLeft="50dp" />
             </androidx.appcompat.widget.Toolbar>
             <TextView
+                android:id="@+id/tvSoLuong"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:padding="10dp"
                 android:background="#E4E4E4"
-                android:text="ĐỒNG HỒ"
+                android:text="KẾT QUẢ (0)"
                 android:textColor="#383838"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:maxLines="1"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

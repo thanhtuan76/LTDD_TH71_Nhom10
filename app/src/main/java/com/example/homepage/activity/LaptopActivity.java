@@ -15,6 +15,9 @@ package com.example.homepage.activity;
         import android.view.Menu;
         import android.view.MenuInflater;
         import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.ProgressBar;
+        import android.widget.TextView;
 
         import com.android.volley.RequestQueue;
         import com.android.volley.Response;
@@ -36,7 +39,9 @@ public class LaptopActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
     private ArrayList<Product> listLaptop;
-    ProductAdapter spAdapter;
+    private ProductAdapter spAdapter;
+    private ProgressBar progressBar;
+    private TextView tvSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,14 @@ public class LaptopActivity extends AppCompatActivity {
             }
         });
 
+        tvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(searchIntent);
+            }
+        });
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -90,24 +103,14 @@ public class LaptopActivity extends AppCompatActivity {
 
         Anhxa();
         GetDataLap();
-//
-//        listLaptop= new ArrayList<>();
-//        listLaptop.add(new Product("Macbook Pro 13 Touch Bar i5 1.4GHz/8G/128GB (2019)","39.990.000₫",R.drawable.macbookprotb));
-//        listLaptop.add(new Product("MSI GF63 8RC-203VN/I5-8300H ","21.990.000₫",R.drawable.msigf6rd));
-//        listLaptop.add(new Product("Acer Nitro AN515-43-R84R/NH.Q5XSV.001 ","16.990.000₫",R.drawable.acernitro52019));
-//        listLaptop.add(new Product("Acer Aspire A315 54 34U i3 10110U/4Gb/256Gb/15.6\"HD/Win 10","15.090.000₫",R.drawable.aceraspa315));
-//        listLaptop.add(new Product("Asus D570DD-E4027T R5-3500U/4GB/256GB/4GB GTX1050/WIN10","10.490.000 ₫",R.drawable.asusd570dd));
-//        listLaptop.add(new Product("HP 15s-du0059TU Pentium N5000/4GB/1TB/WIN10","9.890.000₫",R.drawable.hp15s));
-
-//        ProductAdapter adapter = new ProductAdapter(this, listLaptop);
-//        recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
     }
     private void GetDataLap() {
+        progressBar.setVisibility(View.VISIBLE);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://5ed91adb4378690016c6ac70.mockapi.io/api/SP", new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                progressBar.setVisibility(View.INVISIBLE);
                 if (response != null){
                     int ID = 0;
                     String Tensp = "";
@@ -153,7 +156,6 @@ public class LaptopActivity extends AppCompatActivity {
         recyclerView.setAdapter(spAdapter);
     }
 
-///  ---------   FUNCTION   --------- ///
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)){
@@ -190,6 +192,7 @@ public class LaptopActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawerLayout);
         recyclerView = findViewById(R.id.recyclerview);
+        progressBar = findViewById(R.id.progressBar);
+        tvSearch = findViewById(R.id.tvSearch);
     }
 }
-///  ---------  END FUNCTION  --------- ///

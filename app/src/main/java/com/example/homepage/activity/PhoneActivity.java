@@ -15,7 +15,10 @@ package com.example.homepage.activity;
         import android.view.Menu;
         import android.view.MenuInflater;
         import android.view.MenuItem;
+        import android.view.View;
         import android.widget.LinearLayout;
+        import android.widget.ProgressBar;
+        import android.widget.TextView;
 
         import com.android.volley.RequestQueue;
         import com.android.volley.Response;
@@ -38,7 +41,8 @@ public class PhoneActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private ArrayList<Product> listPhone;
     private ProductAdapter spAdapter;
-    private LinearLayout lin;
+    private ProgressBar progressBar;
+    private TextView tvSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,14 @@ public class PhoneActivity extends AppCompatActivity {
             }
         });
 
+        tvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(searchIntent);
+            }
+        });
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -92,29 +104,15 @@ public class PhoneActivity extends AppCompatActivity {
 
         Anhxa();
         GetDataPhone();
-//
-//        listPhone = new ArrayList<>();
-//        listPhone.add(new Product("IPhone 11 Pro Max 512GB","43.990.000 ₫",R.drawable.ip11pm));
-//        listPhone.add(new Product("IPhone Xs Max 256GB","32.990.000 ₫",R.drawable.ipxsm));
-//        listPhone.add(new Product("Samsung Galaxy S20+","23.990.000 ₫",R.drawable.samsung20));
-//        listPhone.add(new Product("Samsung Galaxy Note 10 Lite","13.990.000 ₫",R.drawable.ssn10l));
-//        listPhone.add(new Product("Samsung Galaxy A71","10.490.000 ₫",R.drawable.ssa71));
-//        listPhone.add(new Product("Huawei Nova 7i","6.990.000 ₫",R.drawable.hn7i));
-//        listPhone.add(new Product("Vivo Y50 8GB-128GB","6.290.000 ₫",R.drawable.vvy50));
-//        listPhone.add(new Product("Oppo A31 4GB-128GB","4.990.000 ₫",R.drawable.opa31));
-//        listPhone.add(new Product("Vsmart Active 3 6GB-64GB","3.990.000 ₫",R.drawable.vsa3));
-//        listPhone.add(new Product("Realme 5i 4GB-64GB","3.690.000 ₫",R.drawable.rm5i));
-
-//        ProductAdapter adapter = new ProductAdapter(this, listPhone);
-//        recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
     }
 
     private void GetDataPhone() {
+        progressBar.setVisibility(View.VISIBLE);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://5ed91adb4378690016c6ac70.mockapi.io/api/Phones", new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                progressBar.setVisibility(View.INVISIBLE);
                 if (response != null){
                     int ID = 0;
                     String Tensp = "";
@@ -192,6 +190,8 @@ public class PhoneActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawerLayout);
         recyclerView = findViewById(R.id.recyclerview);
+        progressBar = findViewById(R.id.progressBar);
+        tvSearch = findViewById(R.id.tvSearch);
     }
 }
 

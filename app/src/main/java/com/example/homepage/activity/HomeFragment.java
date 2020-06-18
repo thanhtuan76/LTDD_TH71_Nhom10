@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         view_flipper = view.findViewById(R.id.v_flipper);
-        recyclerView = view.findViewById(R.id.recycleViewHome);
+        recyclerView = view.findViewById(R.id.recyclerViewHome);
         progressBar = view.findViewById(R.id.progressBarHome);
 
         //View flipper
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
         }
 
         Anhxa();
-        GetDataProc();
+        GetData();
 
         return view;
     }
@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(spAdapter);
     }
 
-    private void GetDataProc() {
+    private void GetData() {
         progressBar.setVisibility(View.VISIBLE);
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://5ed91adb4378690016c6ac70.mockapi.io/api/SP", new Response.Listener<JSONArray>() {

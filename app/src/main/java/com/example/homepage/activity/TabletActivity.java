@@ -15,6 +15,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,9 +38,10 @@ public class TabletActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
-    //private List<Product> listTablet;
-    private ArrayList<Product> listTab;
+    private ArrayList<Product> listTablet;
     private ProductAdapter spAdapter;
+    private ProgressBar progressBar;
+    private TextView tvSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,13 @@ public class TabletActivity extends AppCompatActivity {
             }
         });
 
+        tvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(searchIntent);
+            }
+        });
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -90,16 +101,17 @@ public class TabletActivity extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
 
-
         Anhxa();
-        GetDataTab();
+        GetDataTablet();
     }
 
-    private void GetDataTab() {
+    private void GetDataTablet() {
+        progressBar.setVisibility(View.VISIBLE);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://5ed91adb4378690016c6ac70.mockapi.io/api/Tablets", new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                progressBar.setVisibility(View.INVISIBLE);
                 if (response != null){
                     int ID = 0;
                     String Tensp = "";
@@ -116,7 +128,7 @@ public class TabletActivity extends AppCompatActivity {
                             Anhsp = jsonObject.getString("HinhAnhSanPham");
                             Motasp = jsonObject.getString("MoTaSanPham");
                             CateID = jsonObject.getInt("MaLoaiSanPham");
-                            listTab.add(new Product(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
+                            listTablet.add(new Product(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
                             spAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -135,8 +147,8 @@ public class TabletActivity extends AppCompatActivity {
 
     private void Anhxa() {
 
-        listTab = new ArrayList<>();
-        spAdapter = new ProductAdapter(getApplicationContext(),listTab);
+        listTablet = new ArrayList<>();
+        spAdapter = new ProductAdapter(getApplicationContext(),listTablet);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         recyclerView.setAdapter(spAdapter);
@@ -178,5 +190,7 @@ public class TabletActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawerLayout);
         recyclerView = findViewById(R.id.recyclerview);
+        progressBar = findViewById(R.id.progressBar);
+        tvSearch = findViewById(R.id.tvSearch);
     }
 }
