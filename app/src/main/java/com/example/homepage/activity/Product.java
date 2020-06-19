@@ -1,6 +1,7 @@
 package com.example.homepage.activity;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class Product implements Serializable {
     private int prodID;
@@ -42,6 +43,25 @@ public class Product implements Serializable {
         this.prodDes = prodDes;
         this.prodCateID = prodCateID;
     }
+
+    public static Comparator<Product> priceComparator = new Comparator<Product>() {
+        @Override
+        public int compare(Product prod1, Product prod2) {
+            if (prod1.getProdPrice() < prod2.getProdPrice())
+                return -1;
+            else if (prod1.getProdPrice() == prod2.getProdPrice())
+                return 0;
+            else
+                return 1;
+        }
+    };
+
+    public static Comparator<Product> nameComparator = new Comparator<Product>() {
+        @Override
+        public int compare(Product prod1, Product prod2) {
+            return prod1.getProdName().compareTo(prod2.getProdName());
+        }
+    };
 
     public String getProdName() {
         return prodName;

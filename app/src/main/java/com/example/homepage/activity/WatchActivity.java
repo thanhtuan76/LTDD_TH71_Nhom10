@@ -1,15 +1,20 @@
 package com.example.homepage.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class WatchActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -42,6 +48,7 @@ public class WatchActivity extends AppCompatActivity {
     private ProductAdapter spAdapter;
     private ProgressBar progressBar;
     private TextView tvSearch;
+    private Spinner spSort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +99,40 @@ public class WatchActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        ArrayAdapter<CharSequence> sortAdapter = ArrayAdapter.createFromResource(this, R.array.arrSort, android.R.layout.simple_spinner_item);
+        sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spSort.setAdapter(sortAdapter);
+        spSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int order = 0;
+                switch (spSort.getSelectedItemPosition()) {
+                    case 0:
+                        break;
+                    case 1:
+                        order = 1;
+                        break;
+                    case 2:
+                        order = 2;
+                        break;
+                    case 3:
+                        order = 3;
+                        break;
+                    case 4:
+                        order = 4;
+                        break;
+                }
+                Anhxa();
+                GetDataWatch(order);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Anhxa();
+                GetDataWatch(0);
+            }
+        });
+
         // Navigation bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -100,15 +141,13 @@ public class WatchActivity extends AppCompatActivity {
         actionBar.setLogo(R.drawable.logo);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
-
-        Anhxa();
-        GetDataPhone();
     }
 
-    private void GetDataPhone() {
+    private void GetDataWatch(final int order) {
         progressBar.setVisibility(View.VISIBLE);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://5ed91adb4378690016c6ac70.mockapi.io/api/SP", new Response.Listener<JSONArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(JSONArray response) {
                 progressBar.setVisibility(View.INVISIBLE);
@@ -134,6 +173,23 @@ public class WatchActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                        }
+
+                        switch (order) {
+                            case 0:
+                                break;
+                            case 1:
+                                Collections.sort(listWatch, Product.nameComparator); // name ascending
+                                break;
+                            case 2:
+                                Collections.sort(listWatch, Product.nameComparator.reversed()); // name descending
+                                break;
+                            case 3:
+                                Collections.sort(listWatch, Product.priceComparator); // price ascending
+                                break;
+                            case 4:
+                                Collections.sort(listWatch, Product.priceComparator.reversed()); // price descending
+                                break;
                         }
                     }
                 }
@@ -193,6 +249,7 @@ public class WatchActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         progressBar = findViewById(R.id.progressBar);
         tvSearch = findViewById(R.id.tvSearch);
+        spSort = findViewById(R.id.spSort);
     }
 }
 

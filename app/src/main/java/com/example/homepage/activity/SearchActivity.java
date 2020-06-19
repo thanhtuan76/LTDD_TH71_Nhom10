@@ -18,8 +18,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -145,7 +148,7 @@ public class SearchActivity extends AppCompatActivity {
                             Anhsp = jsonObject.getString("HinhAnhSanPham");
                             Motasp = jsonObject.getString("MoTaSanPham");
                             CateID = jsonObject.getInt("MaLoaiSanPham");
-                            if (Tensp.toLowerCase().contains(str.toLowerCase())) {
+                            if (Tensp.toLowerCase().startsWith(str.toLowerCase())) {
                                 listProd.add(new Product(ID, Tensp, Giasp, Anhsp, Motasp, CateID));
                                 spAdapter.notifyDataSetChanged();
                             }

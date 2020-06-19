@@ -37,14 +37,32 @@
                     android:textSize="16dp"
                     android:paddingLeft="50dp" />
             </androidx.appcompat.widget.Toolbar>
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:padding="10dp"
-                android:background="#E4E4E4"
-                android:text="ĐỒNG HỒ"
-                android:textColor="#383838"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:background="#E4E4E4">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:background="#E4E4E4"
+                    android:text="ĐỒNG HỒ"
+                    android:textColor="#383838"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="118dp"
+                    android:text="Sắp xếp:"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"/>
+                <Spinner
+                    android:id="@+id/spSort"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:padding="10dp" />
+            </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
