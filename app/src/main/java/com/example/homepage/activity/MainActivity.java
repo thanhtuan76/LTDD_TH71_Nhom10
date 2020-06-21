@@ -184,30 +184,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void addNotification(int id, int notiTitle, int notiContent, int img) {
-        String title = getString(notiTitle);
-        String content = getString(notiContent);
-        Bitmap picture = BitmapFactory.decodeResource(getResources(), img);
-
-        Intent notificationIntent = new Intent(this, NotificationManagerActivity.class);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "NotificationChannel")
-                .setSmallIcon(R.drawable.logo)
-                .setLargeIcon(picture)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setStyle(new NotificationCompat.BigPictureStyle()
-                        .bigPicture(picture)
-                        .bigLargeIcon(null))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true)
-                .setContentIntent(pendIntent);
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(id, builder.build());
-    }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

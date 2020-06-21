@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.example.homepage.R;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 public class NotificationDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -122,11 +123,11 @@ public class NotificationDetailActivity extends AppCompatActivity {
         imgNoti = findViewById(R.id.imgNoti);
 
         // Set notification_item information
-        int img = getIntent().getIntExtra("img", -1);
+        String img = getIntent().getStringExtra("img");
         String strTitle = getIntent().getStringExtra("title");
         String strContent = getIntent().getStringExtra("content");
 
-        imgNoti.setImageResource(img);
+        Picasso.with(getApplicationContext()).load(img).into(imgNoti);
         tvTitle.setText(strTitle);
         tvContent.setText(strContent);
     }
