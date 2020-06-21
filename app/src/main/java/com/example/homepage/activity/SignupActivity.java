@@ -7,13 +7,28 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.homepage.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.DataOutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +44,8 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         Initial();
+        GetListUser();
+
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +58,7 @@ public class SignupActivity extends AppCompatActivity {
                 boolean allOK = isHoOK && isTenOK && isUsernameOK && isEmailOK && isPasswordOK && isConfirmOK;
 
                 if (allOK) {
-                    AddUser();
+                    AddUser(txtUsername.getText().toString().trim(), txtPass.getText().toString());
                     Intent intent= new Intent(getApplicationContext(), SigninActivity.class);
                     intent.putExtra("username", txtUsername.getText().toString());
                     startActivity(intent);
@@ -81,8 +98,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public boolean checkUsername() {
-        String username = txtUsername.getText().toString();
-        RetrieveUser();
+        String username = txtUsername.getText().toString().trim();
         if (username.length() == 0) {
             txtUsername.setError("Tên đăng nhập không được bỏ trống");
             return false;
@@ -183,27 +199,70 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    public void AddUser() {
-        ContentValues values = new ContentValues();
-        values.put(UserProvider.USERNAME, (txtUsername.getText().toString().trim()));
-        values.put(UserProvider.PASSWORD, (txtPass.getText().toString()));
+    private void GetListUser() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://5ed91adb4378690016c6ac70.mockapi.io/api/Tablets", new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if (response != null){
+                    String username;
+                    String password;
+                    for (int i = 0; i < response.length(); i++){
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            username = jsonObject.getString("name");
+                            password = jsonObject.getString("password");
+                            listUsername.add(username);
+                            listPassword.add(password);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
-        Uri uri = getContentResolver().insert(UserProvider.CONTENT_URI, values);
-        Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
     }
 
-    public void RetrieveUser() {
-        String URL = "content://com.example.homepage.activity.UserProvider";
-        Uri users = Uri.parse(URL);
-        Cursor c =  managedQuery(users, null, null, null, "username");
+    private void AddUser(final String username, final String password) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL("https://5ed91adb4378690016c6ac70.mockapi.io/api/Tablets");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    conn.setRequestProperty("Accept","application/json");
+                    conn.setDoOutput(true);
+                    conn.setDoInput(true);
 
-        if (c.moveToFirst()) {
-            do {
-                String strName = c.getString(c.getColumnIndex(UserProvider.USERNAME));
-                String strPass = c.getString(c.getColumnIndex(UserProvider.PASSWORD));
-                listUsername.add(strName);
-                listPassword.add(strPass);
-            } while (c.moveToNext());
-        }
+                    JSONObject jsonParam = new JSONObject();
+                    jsonParam.put("name", username);
+                    jsonParam.put("password", password);
+
+                    Log.i("JSON", jsonParam.toString());
+                    DataOutputStream os = new DataOutputStream(conn.getOutputStream());
+                    os.writeBytes(jsonParam.toString());
+
+                    os.flush();
+                    os.close();
+
+                    Log.i("STATUS", String.valueOf(conn.getResponseCode()));
+                    Log.i("MSG" , conn.getResponseMessage());
+
+                    conn.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
     }
 }
