@@ -76,10 +76,6 @@ public class HomeFragment extends Fragment {
         ImageView view = new ImageView(getActivity());
         view.setImageResource(id);
         view_flipper.addView(view);
-        view_flipper.setFlipInterval(4000);
-        view_flipper.setAutoStart(true);
-        view_flipper.setInAnimation(getActivity(), android.R.anim.slide_in_left);
-        view_flipper.setOutAnimation(getActivity(), android.R.anim.slide_out_right);
     }
 
     private void Anhxa() {

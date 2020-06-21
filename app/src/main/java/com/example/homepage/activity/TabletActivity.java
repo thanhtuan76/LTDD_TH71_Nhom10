@@ -146,7 +146,7 @@ public class TabletActivity extends AppCompatActivity {
     private void GetDataTablet(final int order) {
         progressBar.setVisibility(View.VISIBLE);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://5ed91adb4378690016c6ac70.mockapi.io/api/Tablets", new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://5ed91adb4378690016c6ac70.mockapi.io/api/SP", new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(JSONArray response) {
@@ -161,14 +161,16 @@ public class TabletActivity extends AppCompatActivity {
                     for (int i = 0; i < response.length(); i++){
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
-                            ID = jsonObject.getInt("IDSanPham");
-                            Tensp = jsonObject.getString("TenSanPham");
-                            Giasp = jsonObject.getInt("GiaSanPham");
-                            Anhsp = jsonObject.getString("HinhAnhSanPham");
-                            Motasp = jsonObject.getString("MoTaSanPham");
-                            CateID = jsonObject.getInt("MaLoaiSanPham");
-                            listTablet.add(new Product(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
-                            spAdapter.notifyDataSetChanged();
+                            if (jsonObject.getInt("MaLoaiSanPham") == 2){
+                                ID = jsonObject.getInt("IDSanPham");
+                                Tensp = jsonObject.getString("TenSanPham");
+                                Giasp = jsonObject.getInt("GiaSanPham");
+                                Anhsp = jsonObject.getString("HinhAnhSanPham");
+                                Motasp = jsonObject.getString("MoTaSanPham");
+                                CateID = jsonObject.getInt("MaLoaiSanPham");
+                                listTablet.add(new Product(ID,Tensp,Giasp,Anhsp,Motasp,CateID));
+                                spAdapter.notifyDataSetChanged();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
