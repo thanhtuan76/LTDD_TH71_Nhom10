@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.homepage.R;
+import com.example.homepage.activity.adapter.ProductAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

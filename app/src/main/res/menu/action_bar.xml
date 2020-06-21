@@ -6,4 +6,8 @@
         android:icon="@drawable/ic_noti"
         android:title="Notifications"
         app:showAsAction="always" />
+    <item android:id="@+id/action_cart"
+        android:icon="@drawable/ic_shopping_cart"
+        android:title="Notifications"
+        app:showAsAction="always" />
 </menu>

@@ -11,6 +11,15 @@ public class Product implements Serializable {
     private String prodDes;
     private int prodCateID;
 
+    public Product(int prodID, String prodName, int prodPrice, String prodImg, String prodDes, int prodCateID) {
+        this.prodID = prodID;
+        this.prodName = prodName;
+        this.prodPrice = prodPrice;
+        this.prodImg = prodImg;
+        this.prodDes = prodDes;
+        this.prodCateID = prodCateID;
+    }
+
     public String getProdDes() {
         return prodDes;
     }
@@ -33,15 +42,6 @@ public class Product implements Serializable {
 
     public void setProdID(int prodID) {
         this.prodID = prodID;
-    }
-
-    public Product(int prodID, String prodName, int prodPrice, String prodImg, String prodDes, int prodCateID) {
-        this.prodID = prodID;
-        this.prodName = prodName;
-        this.prodPrice = prodPrice;
-        this.prodImg = prodImg;
-        this.prodDes = prodDes;
-        this.prodCateID = prodCateID;
     }
 
     public static Comparator<Product> priceComparator = new Comparator<Product>() {

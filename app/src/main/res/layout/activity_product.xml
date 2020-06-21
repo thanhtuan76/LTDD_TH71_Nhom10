@@ -81,17 +81,16 @@
                     android:orientation="horizontal">
                     <Button
                         android:id="@+id/btnInstallment"
-                        android:layout_width="200dp"
+                        android:layout_width="190dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
                         android:background="#3F51B5"
+                        android:layout_marginRight="5dp"
                         android:text="Trả góp 0%"
                         android:textColor="#FFFFFF"/>
                     <Button
                         android:id="@+id/btnInstallmentByCard"
-                        android:layout_width="200dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
                         android:background="#3F51B5"
                         android:text="Trả góp 0% qua thẻ"
                         android:textColor="#FFFFFF"/>
