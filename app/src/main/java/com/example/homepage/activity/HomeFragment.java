@@ -1,11 +1,14 @@
 package com.example.homepage.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,57 +28,62 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-    private ViewFlipper view_flipper;
+    private ViewPager viewPager;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     ArrayList<Product> mangsanpham;
     ProductAdapter spAdapter;
+    int currentPage = 0;
+    int NUM_PAGES = 6;
+    Timer timer;
+    final long DELAY_MS = 500; //delay in milliseconds before task is to be executed
+    final long PERIOD_MS = 2500; // time in milliseconds between successive task executions.
 
-    //View flipper
-    int[] imgs = {
-
-            R.drawable.s1,
-            R.drawable.s2,
-            R.drawable.s3,
-            R.drawable.s4,
-            R.drawable.s5,
-            R.drawable.s6
-    };
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        view_flipper = view.findViewById(R.id.v_flipper);
+        viewPager = view.findViewById(R.id.viewPager);
         recyclerView = view.findViewById(R.id.recyclerViewHome);
         progressBar = view.findViewById(R.id.progressBarHome);
 
-        //View flipper
-        for (int i = 0; i < imgs.length; i++) {
-            flip_img(imgs[i]);
-        }
+        ImageAdapter imageAdapter = new ImageAdapter(getActivity());
+        viewPager.setAdapter(imageAdapter);
+
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == NUM_PAGES-1) {
+                    currentPage = 0;
+                }
+                viewPager.setCurrentItem(currentPage++, true);
+            }
+        };
+
+        timer = new Timer(); // This will create a new Thread
+        timer.schedule(new TimerTask() { // task to be scheduled
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, DELAY_MS, PERIOD_MS);
 
         Anhxa();
         GetData();
 
         return view;
-    }
-
-    //View flipper function
-    public void flip_img(int id) {
-        ImageView view = new ImageView(getActivity());
-        view.setImageResource(id);
-        view_flipper.addView(view);
     }
 
     private void Anhxa() {
