@@ -135,14 +135,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Create notification_item channel
-        createNotificationChannel();
-
-        // Add notification_item
-        addNotification(1, R.string.noti1_title, R.string.noti1_content, R.drawable.s2);
-        addNotification(3, R.string.noti3_title, R.string.noti3_content, R.drawable.s3);
-        addNotification(2, R.string.noti2_title, R.string.noti2_content, R.drawable.s4);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -189,18 +181,6 @@ public class MainActivity extends AppCompatActivity {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
-    }
-
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.noti_channel_name);
-            String description = getString(R.string.noti_channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("NotificationChannel", name, importance);
-            channel.setDescription(description);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
         }
     }
 

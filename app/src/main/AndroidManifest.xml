@@ -11,15 +11,21 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.SearchActivity"></activity>
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:configChanges="orientation"
+        android:screenOrientation="portrait">
+
+        <activity android:name=".activity.SearchActivity" />
+
         <activity
             android:name=".activity.SignupActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.SigninActivity" />
+
         <activity
             android:name=".activity.SigninActivity"
             android:launchMode="singleTop" />
+
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTop"
@@ -30,6 +36,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,27 +44,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.ProductDetailActivity" />
         <activity
             android:name=".activity.TabletActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.MainActivity" />
+
         <activity
             android:name=".activity.LaptopActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.MainActivity" />
+
         <activity
             android:name=".activity.PhoneActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.MainActivity" />
+
         <activity
             android:name=".activity.WatchActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.MainActivity" />
+
         <activity
             android:name=".activity.NotificationDetailActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.NotificationManagerActivity" />
+
         <activity
             android:name=".activity.NotificationManagerActivity"
             android:launchMode="singleTop"
@@ -66,6 +79,16 @@
         <provider
             android:name=".activity.UserProvider"
             android:authorities="com.example.homepage.activity.UserProvider" />
+
+        <service android:name=".activity.NotificationService" android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="NotificationChannel" />
     </application>
 
 </manifest>
