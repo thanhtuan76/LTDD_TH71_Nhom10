@@ -5,18 +5,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,12 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.homepage.R;
+import com.example.homepage.activity.adapter.NotificationAdapter;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.ArrayList;
 
 public class NotificationManagerActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -141,7 +131,7 @@ public class NotificationManagerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.nav_cart:
+            case R.id.nav_list:
                 return true;
             case R.id.nav_notification:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);

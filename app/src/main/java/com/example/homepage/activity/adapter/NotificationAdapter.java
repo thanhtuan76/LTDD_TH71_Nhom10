@@ -1,4 +1,4 @@
-package com.example.homepage.activity;
+package com.example.homepage.activity.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

@@ -8,11 +8,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +31,15 @@ public class ProductDetailActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private TextView tvProdName, tvProdPrice, mota;
     private ImageView imgProd;
+    private Button btnBuy;
+
+    int id = 0;
+    String TenCT = "";
+    int Gia = 0;
+    String HinhCT = "";
+    String MotaCT = "";
+    int idloaisp = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,17 +91,47 @@ public class ProductDetailActivity extends AppCompatActivity {
         
         Anhxa();
         GetInfo();
+        EventButton();
+    }
+
+    private void EventButton() {
+        btnBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MainActivity.cartArrayList.size() > 0){
+                    int quant = 1;
+                    boolean exists = false;
+                    for (int i = 0; i < MainActivity.cartArrayList.size(); i++){
+                        if (MainActivity.cartArrayList.get(i).getProdID() == id){
+                            MainActivity.cartArrayList.get(i).setQuantity(MainActivity.cartArrayList.get(i).getQuantity() + quant);
+                            if (MainActivity.cartArrayList.get(i).getQuantity() >= 10) {
+                                MainActivity.cartArrayList.get(i).setQuantity(10);
+                            }
+                            MainActivity.cartArrayList.get(i).setProdPrice(Gia * MainActivity.cartArrayList.get(i).getQuantity());
+                            exists = true;
+                            break;
+                        }
+                    }
+                    if (exists == false){
+                        int quantity = 1;
+                        int total = quantity * Gia;
+                        MainActivity.cartArrayList.add(new Cart(id, TenCT, total, HinhCT, quantity));
+                    }
+
+                }else {
+                    int quantity = 1;
+                    int total = quantity * Gia;
+                    MainActivity.cartArrayList.add(new Cart(id, TenCT, total, HinhCT, quantity));
+                }
+                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void Anhxa() {
     }
     public void GetInfo (){
-        int id = 0;
-        String TenCT = "";
-        int Gia = 0;
-        String HinhCT = "";
-        String MotaCT = "";
-        int idloaisp = 0;
         Product product = (Product) getIntent().getSerializableExtra("thongtinsanpham");
         id = product.getProdID();
         TenCT =  product.getProdName();
@@ -102,7 +144,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvProdPrice.setText("Giá: " + decimalFormat.format(Gia) + " Đ");
         mota.setText(MotaCT);
         Picasso.with(getApplicationContext()).load(HinhCT).into(imgProd);
-
     }
 
     @Override
@@ -125,7 +166,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.nav_cart:
+            case R.id.nav_list:
                 return true;
             case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);
@@ -144,5 +185,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvProdPrice = findViewById((R.id.tvProdPrice));
         mota = findViewById(R.id.mota);
         imgProd = findViewById(R.id.imgProd);
+        btnBuy = findViewById(R.id.btnBuy);
     }
 }

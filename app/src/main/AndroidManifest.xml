@@ -46,7 +46,6 @@
         </activity>
 
         <activity android:name=".activity.ProductDetailActivity" />
-
         <activity
             android:name=".activity.TabletActivity"
             android:launchMode="singleTop"
@@ -76,6 +75,10 @@
             android:name=".activity.NotificationManagerActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.MainActivity" />
+
+        <provider
+            android:name=".activity.UserProvider"
+            android:authorities="com.example.homepage.activity.UserProvider" />
 
         <service android:name=".activity.NotificationService" android:exported="false">
             <intent-filter>

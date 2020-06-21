@@ -1,4 +1,4 @@
-package com.example.homepage.activity;
+package com.example.homepage.activity.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homepage.R;
+import com.example.homepage.activity.Product;
+import com.example.homepage.activity.ProductDetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -41,7 +43,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemHold
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context,ProductDetailActivity.class);
+                    Intent intent = new Intent(context, ProductDetailActivity.class);
                     intent.putExtra("thongtinsanpham", arrProduct.get(getAdapterPosition()));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);

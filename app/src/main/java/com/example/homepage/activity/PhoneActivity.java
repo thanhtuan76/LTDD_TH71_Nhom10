@@ -20,8 +20,6 @@ package com.example.homepage.activity;
         import android.view.View;
         import android.widget.AdapterView;
         import android.widget.ArrayAdapter;
-        import android.widget.ImageView;
-        import android.widget.LinearLayout;
         import android.widget.ProgressBar;
         import android.widget.Spinner;
         import android.widget.TextView;
@@ -32,6 +30,7 @@ package com.example.homepage.activity;
         import com.android.volley.toolbox.JsonArrayRequest;
         import com.android.volley.toolbox.Volley;
         import com.example.homepage.R;
+        import com.example.homepage.activity.adapter.ProductAdapter;
         import com.google.android.material.navigation.NavigationView;
 
         import org.json.JSONArray;
@@ -39,7 +38,6 @@ package com.example.homepage.activity;
         import org.json.JSONObject;
 
         import java.util.ArrayList;
-        import java.util.Collection;
         import java.util.Collections;
 
 public class PhoneActivity extends AppCompatActivity {
@@ -232,7 +230,9 @@ public class PhoneActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.nav_cart:
+            case R.id.action_cart:
+                Intent CartProductManager = new Intent(this, CartActivity.class);
+                startActivity(CartProductManager);
                 return true;
             case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);
