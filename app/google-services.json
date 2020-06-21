@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "854395102445",
+    "firebase_url": "https://laptrinhandroid-3a2df.firebaseio.com",
+    "project_id": "laptrinhandroid-3a2df",
+    "storage_bucket": "laptrinhandroid-3a2df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854395102445:android:f53b94b66001b480a558e4",
+        "android_client_info": {
+          "package_name": "com.example.homepage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854395102445-euc31njasqs1elhhoifb66flrkobp7e6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNcEnwEVBU7_z7jXCW191xEaLvxG82kN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854395102445-euc31njasqs1elhhoifb66flrkobp7e6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
