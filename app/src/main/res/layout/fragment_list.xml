@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ListFragment">
+    android:background="#EFEFEF"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="List fragment" />
+        android:layout_height="0dp"
+        android:layout_weight="7">
 
-</FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/ic_list_gray"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"/>
+            <TextView
+                android:id="@+id/emptyCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="70dp"
+                android:text="Đơn hàng trống"
+                android:textColor="#818181"
+                android:textSize="30dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_cart_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>
