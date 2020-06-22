@@ -233,8 +233,6 @@ public class LaptopActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_cart:
-                Intent CartProductManager = new Intent(this, CartActivity.class);
-                startActivity(CartProductManager);
                 return true;
             case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);

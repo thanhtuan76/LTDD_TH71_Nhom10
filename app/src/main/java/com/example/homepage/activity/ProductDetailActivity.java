@@ -88,8 +88,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         actionBar.setLogo(R.drawable.logo);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
-        
-        Anhxa();
+
         GetInfo();
         EventButton();
     }
@@ -109,19 +108,18 @@ public class ProductDetailActivity extends AppCompatActivity {
                             }
                             MainActivity.cartArrayList.get(i).setProdPrice(Gia * MainActivity.cartArrayList.get(i).getQuantity());
                             exists = true;
-                            break;
                         }
                     }
-                    if (exists == false){
+                    if (!exists){
                         int quantity = 1;
-                        int total = quantity * Gia;
-                        MainActivity.cartArrayList.add(new Cart(id, TenCT, total, HinhCT, quantity));
+                        int total = Gia;
+                        MainActivity.cartArrayList.add(new Cart(id, TenCT, total, HinhCT, quantity, idloaisp));
                     }
 
                 }else {
                     int quantity = 1;
-                    int total = quantity * Gia;
-                    MainActivity.cartArrayList.add(new Cart(id, TenCT, total, HinhCT, quantity));
+                    int total = Gia;
+                    MainActivity.cartArrayList.add(new Cart(id, TenCT, total, HinhCT, quantity, idloaisp));
                 }
                 Intent intent = new Intent(getApplicationContext(), CartActivity.class);
                 startActivity(intent);
@@ -129,8 +127,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void Anhxa() {
-    }
+
     public void GetInfo (){
         Product product = (Product) getIntent().getSerializableExtra("thongtinsanpham");
         id = product.getProdID();
@@ -166,7 +163,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.nav_list:
+            case R.id.action_cart:
                 return true;
             case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);

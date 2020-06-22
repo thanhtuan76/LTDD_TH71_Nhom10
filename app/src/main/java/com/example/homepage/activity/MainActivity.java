@@ -17,6 +17,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homepage.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private String strUsername;
     private TextView tvSearch;
     public static ArrayList<Cart> cartArrayList;
+    RecyclerView recyclerView;
+
 
 /// ------------------------------------------------------ ///
 
@@ -134,7 +137,11 @@ public class MainActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottom_nav);
         tvSearch = findViewById(R.id.tvSearch);
         strUsername = getIntent().getStringExtra("user_name");
-        if (cartArrayList == null) {
+        if (cartArrayList != null)
+        {
+        }
+        else
+        {
             cartArrayList = new ArrayList<>();
         }
 
@@ -166,8 +173,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_cart:
-                Intent CartProductManager = new Intent(this, CartActivity.class);
-                startActivity(CartProductManager);
+                Intent CartProductsManager = new Intent(this, CartActivity.class);
+                startActivity(CartProductsManager);
                 return true;
             case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);

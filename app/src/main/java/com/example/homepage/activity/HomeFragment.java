@@ -1,6 +1,5 @@
 package com.example.homepage.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,9 +11,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.ViewFlipper;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.homepage.R;
+import com.example.homepage.activity.adapter.ImageAdapter;
 import com.example.homepage.activity.adapter.ProductAdapter;
 
 import org.json.JSONArray;
