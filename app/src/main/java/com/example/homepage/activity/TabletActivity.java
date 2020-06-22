@@ -234,6 +234,8 @@ public class TabletActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_cart:
+                Intent CartProductsManager = new Intent(this, CartActivity.class);
+                startActivity(CartProductsManager);
                 return true;
             case R.id.action_noti:
                 Intent NotificationManagerIntent = new Intent(this, NotificationManagerActivity.class);
